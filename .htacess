@@ -1,0 +1,4 @@
+RewriteEngine On
+
+RewriteCond %{REQUEST_URI} !^/TCC/public/
+RewriteRule ^(.*)$ /TCC/public/$1 [L]
