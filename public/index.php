@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 // pega a rota da URL
 $url = $_GET['url'] ?? 'login';
 
-// remove barra no final (ex: /login/)
+// Remove barra no final (ex: /login/)
 $url = trim($url, '/');
 
 // ROTAS
@@ -29,7 +29,7 @@ switch ($url) {
 
     case 'usuarios':
         require '../app/Controller/ControllerUsuarios.php';
-        (new ControllerUsuario())->index();
+        (new ControllerUsuarios())->index();
         break;
 
     case 'clientes':
