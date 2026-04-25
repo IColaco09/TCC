@@ -14,8 +14,8 @@ function rotaVendas(){
     window.location ='/TCC/public/index.php?url=vendas';
 }
 
-function rotaRelatorios(){
-    window.location ='/TCC/public/index.php?url=relatorios';
+function rotaPedidos(){
+    window.location ='/TCC/public/index.php?url=pedidos';
 }
 
 function rotaUsuarios(){

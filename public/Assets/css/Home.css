@@ -11,7 +11,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Syne', sans-serif;
+  font-family: "Syne", sans-serif;
   border: none;
   background: none;
   cursor: pointer;
@@ -21,7 +21,6 @@ body {
   background: var(--bg);
   color: var(--text);
 }
-
 
 .home {
   display: flex;
@@ -173,8 +172,36 @@ body {
   border: 1px solid var(--border);
 }
 
-.tabela-header {
+.tabela table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela tr {
   display: grid;
-  grid-template-columns: 2fr 2fr 2fr 1fr; /* se for adicionado um novo item na tabela, adicionar mais um Xfr */
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.tabela-4 tr {
+  grid-template-columns: 2fr 2fr 2fr 1fr;
+}
+
+.tabela-5 tr {
+  grid-template-columns: 2fr 2fr 2fr 2fr 1fr;
+}
+
+.tabela-6 tr {
+  grid-template-columns: 2fr 2fr 2fr 2fr 2fr 1fr;
+}
+
+.tabela th {
   color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.tabela thead tr th {
+  color: var(--text);
 }

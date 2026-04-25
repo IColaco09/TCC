@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Início</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/TCC/public/Assets/css/Login.css">
-    <link rel="stylesheet" href="/TCC/public/Assets/css/Home.css">
-    <script src="/TCC/public/Assets/js/rotas.js"></script>
+  <link rel="stylesheet" href="/TCC/public/Assets/css/Login.css">
+  <link rel="stylesheet" href="/TCC/public/Assets/css/Home.css">
+  <script src="/TCC/public/Assets/js/rotas.js"></script>
 </head>
+
 <body>
 
   <div class="home">
@@ -18,13 +20,12 @@
 
       <nav>
         <button onclick="rotaHome()" class="active">Início</button>
-        <button onclick="rotarPodutos()">Produtos</button>
+        <button onclick="rotaProdutos()">Produtos</button>
         <button onclick="rotaClientes()">Clientes</button>
         <button onclick="rotaVendas()">Vendas</button>
-        <button onclick="rotaRelatorios()">Relatórios</button>
+        <button onclick="rotaRelatorios()">Pedidos</button><!-- mudar a rota-->
         <button onclick="rotaUsuarios()">Usuários</button>
-        <button onclick="rotaConfiguracoes()">Configurações</button> <!-- Meio opcional, mas achei q podia servir pra alguma coisa mais tarde-->
-    </nav>
+      </nav>
 
       <button class="logout" onclick="rotaSair()">Sair</button>
     </aside>
@@ -63,4 +64,5 @@
   </div>
 
 </body>
+
 </html>
