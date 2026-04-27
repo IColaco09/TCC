@@ -29,7 +29,7 @@ switch ($url) {
 
     case 'usuarios':
         require '../app/Controller/ControllerUsuarios.php';
-        (new ControllerUsuarios())->index();
+        (new ControllerUsuarios())->Usuario();
         break;
 
     case 'clientes':

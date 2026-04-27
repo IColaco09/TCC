@@ -21,15 +21,17 @@
         }
 
         public function cadastrar($nome, $email, $senha, $tipo_usuario){
+            $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
             $stmt = $this->conn->prepare("INSERT INTO usuarios (nome, email, senha, tipo_usuario) VALUES (?, ?, ?, ?)");
-            $stmt ->bind_param("sssi", $nome, $email, $senha, $tipo_usuario);
+            $stmt->bind_param("sssi", $nome, $email, $senhaHash, $tipo_usuario);
             return $stmt->execute();
         }
 
         public function editar($id, $nome, $email, $senha, $tipo_usuario){
             if($senha){
+                $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
                 $stmt = $this->conn->prepare("UPDATE usuarios SET nome = ?, email = ?, senha = ?, tipo_usuario = ? WHERE id= ?");
-                $stmt->bind_param("ssii", $nome, $email, $senha, $tipo_usuario, $id);
+                $stmt->bind_param("sssii", $nome, $email, $senhaHash, $tipo_usuario, $id);
             } else{
                 $stmt = $this->conn->prepare("UPDATE usuarios SET nome = ?, email = ?, tipo_usuario = ? WHERE id= ?");
                 $stmt->bind_param("ssii", $nome, $email, $tipo_usuario, $id);

@@ -1,5 +1,5 @@
 <?php
-    require_once '/app/Model/ModelUsuarios.php';
+    require_once __DIR__ . '/../Model/ModelUsuarios.php';
 
     class ControllerUsuarios {
         private $model;
