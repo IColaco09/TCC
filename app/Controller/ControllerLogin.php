@@ -33,7 +33,7 @@ class ControllerLogin{
                     session_regenerate_id(true);
                     $_SESSION['id'] = $user['id'];
                     $_SESSION['tipo'] = $user['tipo_usuario'];
-                    header("Location: /TCC/public/index.php?url=home");
+                    header("Location: index.php?url=home");
                     exit;
                 } else {
                     $erro = "Usuário ou senha incorretos!";

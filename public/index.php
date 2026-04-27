@@ -18,43 +18,43 @@ if (empty($url)) {
 switch ($url) {
 
     case 'login':
-        require '../app/Controller/ControllerLogin.php';
+        require __DIR__ .'/../app/Controller/ControllerLogin.php';
         (new ControllerLogin())->login();
         break;
 
     case 'home':
-        require '../app/Controller/ControllerHome.php';
+        require __DIR__ .'/../app/Controller/ControllerHome.php';
         (new ControllerHome())->index();
         break;
 
     case 'usuarios':
-        require '../app/Controller/ControllerUsuarios.php';
+        require __DIR__ .'/../app/Controller/ControllerUsuarios.php';
         (new ControllerUsuarios())->Usuario();
         break;
 
     case 'clientes':
-        require '../app/Controller/ControllerClientes.php';
+        require __DIR__ .'/../app/Controller/ControllerClientes.php';
         (new ControllerClientes())->index();
         break;
 
     case 'relatorios':
-        require '../app/Controller/ControllerRelatorios.php';
+        require __DIR__ .'/../app/Controller/ControllerRelatorios.php';
         (new ControllerRelatorios())->index();
         break;
 
     case 'produtos':
-        require '../app/Controller/ControllerProdutos.php';
+        require __DIR__ .'/../app/Controller/ControllerProdutos.php';
         (new ControllerProdutos())->index();
         break;
 
     case 'vendas':
-        require '../app/Controller/ControllerVendas.php';
+        require __DIR__ .'/../app/Controller/ControllerVendas.php';
         (new ControllerVendas())->index();
         break;
 
     case 'configuracoes':
-        require '../app/Controller/ControllerConfiguracoes.php';
-        (new ControllerConfiguracoes())->index();
+        require __DIR__ .'/../app/Controller/ControllerPedidos.php';
+        (new ControllerPedidos())->index();
         break;
 
     default:

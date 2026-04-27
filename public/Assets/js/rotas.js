@@ -2,7 +2,7 @@ function rotaHome(){
     window.location ='/TCC/public/index.php?url=home';
 }
 
-function rotarPodutos(){
+function rotaProdutos(){
     window.location ='/TCC/public/index.php?url=produtos';
 }
 
@@ -22,8 +22,8 @@ function rotaUsuarios(){
     window.location ='/TCC/public/index.php?url=usuarios';
 }
 
-function rotaConfiguracoes(){
-    window.location ='/TCC/public/index.php?url=configuracoes';
+function rotaRelatorios(){
+    window.location ='/TCC/public/index.php?url=relatorios';
 }
 
 function rotaSair(){

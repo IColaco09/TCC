@@ -50,7 +50,7 @@ $perfis = [
 
           <div class="buttons">
             <button class="btn">Buscar</button>
-            <button class="btn">+ Novo Usuário</button>
+            <button class="btn" onclick="abrirCadastrar()">+ Novo Usuário</button>
           </div>
         </section>
 
@@ -99,6 +99,32 @@ $perfis = [
 
     </div>
 
+    <div class="modal-overlay" id="modalCadastrar"><!-- Modal para cadastrar usuário -->
+      <div class="modal">
+        <h2>Cadastrar Usuário</h2>
+        <form method="POST" action="/TCC/public/index.php?url=usuarios">
+          <input type="hidden" name="acao" value="cadastrar">
+
+          <input type="text" name="nome" id="cadastrarNome" placeholder="Nome" required>
+          <input type="email" name="email" id="cadastrarEmail" placeholder="E-mail" required>
+          <input type="password" name="senha" id="cadastrarSenha" placeholder="Senha" required>
+          
+          <select name="tipo_usuario" id="cadastrarTipo" required>
+            <option value="">Selecione o Tipo de Usuário</option>
+            <option value="1">Admin</option>
+            <option value="2">Gerente</option>
+            <option value="3">Usuário</option>
+          </select>
+
+          <div class="modal-buttons">
+            <button type="button" onclick="fecharModal('modalCadastrar')">Cancelar</button>
+            <button type="submit">Cadastrar</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
     <div class="modal-overlay" id="modalEditar"><!-- Modal para editar usuário -->
       <div class="modal">
         <h2>Editar Usuário</h2>
@@ -139,4 +165,4 @@ $perfis = [
     </div>
 
   </body>
-</html>
+</html>1

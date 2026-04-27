@@ -12,6 +12,12 @@
             header("Location: /TCC/public/index.php?url=login");
             exit;
         }
+
+        if ($_SESSION['tipo_usuario'] != 1) {
+            header("Location: /TCC/public/index.php?url=home");
+            exit;
+        } 
+
         $this->model = new ModelUsuarios();
         }
 

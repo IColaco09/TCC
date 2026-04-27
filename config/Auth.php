@@ -1,5 +1,5 @@
 <?php
-    if(!isset($_SESSION['id'])){
+    if(isset($_SESSION['id'])){
         header("Location: /TCC/public/index.php?url=login");
         exit;
     }

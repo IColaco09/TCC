@@ -23,7 +23,7 @@
         <button onclick="rotaProdutos()">Produtos</button>
         <button onclick="rotaClientes()">Clientes</button>
         <button onclick="rotaVendas()">Vendas</button>
-        <button onclick="rotaRelatorios()">Pedidos</button><!-- mudar a rota-->
+        <button onclick="rotaPedidos()">Pedidos</button><!-- mudar a rota-->
         <button onclick="rotaUsuarios()">Usuários</button>
       </nav>
 

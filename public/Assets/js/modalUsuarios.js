@@ -1,3 +1,10 @@
+function abrirCadastrar() {
+  document.getElementById('cadastrarNome').value  = '';
+  document.getElementById('cadastrarEmail').value = '';
+  document.getElementById('cadastrarTipo').value  = '';
+  document.getElementById('modalCadastrar').classList.add('ativo');
+}
+
 function abrirEditar(id, nome, email, tipo) {
   document.getElementById('editarId').value    = id;
   document.getElementById('editarNome').value  = nome;
