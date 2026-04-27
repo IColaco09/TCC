@@ -13,7 +13,7 @@
             exit;
         }
         $this->model = new ModelUsuarios();
-    }
+        }
 
         public function Usuario() {
             $sucesso = '';
