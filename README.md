@@ -1,4 +1,4 @@
-# 📦 Sistema Gerencial — TCC
+# Sistema Gerencial — TCC
 
 Sistema web de gestão empresarial desenvolvido em PHP com arquitetura MVC, voltado para o controle de clientes, produtos, pedidos, vendas e usuários.
 
@@ -14,7 +14,7 @@ Sistema web de gestão empresarial desenvolvido em PHP com arquitetura MVC, volt
 
 ---
 
-## 📁 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 TCC/
@@ -62,7 +62,7 @@ TCC/
 
 ---
 
-## ⚙️ Como rodar o projeto
+## Como rodar o projeto
 
 ### Pré-requisitos
 - [XAMPP](https://www.apachefriends.org/) instalado
@@ -141,7 +141,7 @@ http://localhost/TCC/public/index.php?url=login
 
 ---
 
-## 🔐 Perfis de Usuário
+## Perfis de Usuário
 
 | Código | Perfil |
 |--------|--------|
@@ -151,7 +151,7 @@ http://localhost/TCC/public/index.php?url=login
 
 ---
 
-## 📌 Funcionalidades
+## Funcionalidades
 
 - [x] Login com autenticação segura (`password_hash` / `password_verify`)
 - [x] Dashboard com resumo de clientes, produtos e vendas
@@ -164,7 +164,7 @@ http://localhost/TCC/public/index.php?url=login
 
 ---
 
-## 🔒 Segurança
+## Segurança
 
 - Senhas armazenadas com `password_hash()`
 - Sessões com `cookie_httponly` e `use_only_cookies`
@@ -174,6 +174,6 @@ http://localhost/TCC/public/index.php?url=login
 
 ---
 
-## 👨‍💻 Autor
+## Autor
 
 Desenvolvido por **IColaco09, Natan58, Caio-Guerra, Henzo Malta(Gullit96) entre outros** como projeto de TCC.
