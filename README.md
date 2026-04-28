@@ -4,7 +4,7 @@ Sistema web de gestão empresarial desenvolvido em PHP com arquitetura MVC, volt
 
 ---
 
-## 🛠️ Tecnologias
+## Tecnologias
 
 - **PHP** — Backend e roteamento
 - **MySQL** — Banco de dados
