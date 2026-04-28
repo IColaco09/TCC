@@ -1,0 +1,418 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Syne", sans-serif;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+:root {
+  --cyan: #00e5ff;
+  --green: #00ff80;
+  --bg: #0d1117;
+  --glass: rgba(255, 255, 255, 0.04);
+  --border: rgba(255, 255, 255, 0.08);
+  --text: #e0e0e0;
+  --muted: #7a8a99;
+}
+
+/* ── BODY ── */
+body {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(
+      ellipse at 20% 50%,
+      rgba(0, 255, 255, 0.05) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at 80% 20%,
+      rgba(0, 255, 128, 0.04) 0%,
+      transparent 50%
+    );
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── Página Login (body centralizado) ── */
+body.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ── Form Container (login) ── */
+.form-container {
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 44px 40px 40px;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  box-shadow:
+    0 0 30px rgba(0, 255, 255, 0.1),
+    0 8px 32px rgba(0, 0, 0, 0.5);
+  width: 340px;
+  text-align: center;
+  animation: fadeIn 0.6s ease both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h2 {
+  color: var(--text);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 32px;
+}
+
+/* ── INPUT BOX ── */
+.input-box {
+  position: relative;
+  margin: 24px 0;
+  text-align: left;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 14px 14px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.25);
+  outline: none;
+  color: var(--text);
+  font-size: 15px;
+  transition:
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    background 0.35s ease;
+  border-radius: 4px 4px 0 0;
+}
+
+.input-box input::placeholder {
+  color: transparent;
+}
+
+.input-box input:focus {
+  border-color: var(--cyan);
+  background: rgba(0, 255, 255, 0.04);
+  box-shadow: 0 4px 18px rgba(0, 255, 255, 0.15);
+}
+
+.input-box span {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  color: var(--muted);
+  font-size: 14px;
+  pointer-events: none;
+  transition:
+    top 0.3s ease,
+    font-size 0.3s ease,
+    color 0.3s ease;
+  transform: translateY(-50%);
+  white-space: nowrap;
+}
+
+.input-box input:focus + span,
+.input-box input:not(:placeholder-shown) + span {
+  top: 6px;
+  font-size: 10px;
+  color: var(--cyan);
+  transform: none;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* ── Submit Button (login) ── */
+.submit-btn {
+  width: 100%;
+  background: linear-gradient(90deg, var(--cyan), var(--green));
+  padding: 13px 30px;
+  border-radius: 10px;
+  color: #000;
+  font-size: 15px;
+  font-weight: 700;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.3s ease,
+    filter 0.3s ease;
+  margin-top: 18px;
+  letter-spacing: 0.3px;
+}
+
+.submit-btn:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 6px 24px rgba(0, 255, 255, 0.35);
+  transform: translateY(-1px);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* ── Layout da Home ── */
+.home {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  border-right: 1px solid var(--border);
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.name {
+  margin-bottom: 30px;
+  color: var(--cyan);
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sidebar button {
+  color: var(--muted);
+  padding: 10px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.sidebar button:hover,
+.sidebar button.active {
+  background: rgba(0, 255, 255, 0.1);
+  color: var(--cyan);
+}
+
+.logout {
+  border: 1px solid var(--border);
+  padding: 10px;
+  border-radius: 8px;
+  color: var(--muted);
+  transition: 0.3s;
+}
+
+.logout:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+/* ── Content ── */
+.content {
+  flex: 1;
+  padding: 30px;
+}
+
+.topbar h1 {
+  font-size: 26px;
+}
+
+.topbar p {
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ── Cards ── */
+.cards {
+  display: flex;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.card {
+  flex: 1;
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  padding: 20px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.08);
+}
+
+.card h3 {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.card p {
+  font-size: 22px;
+  margin-top: 8px;
+  color: var(--cyan);
+}
+
+/* ── Panel ── */
+.panel {
+  margin-top: 30px;
+  padding: 25px;
+  background: var(--glass);
+  border-radius: 14px;
+  border: 1px solid var(--border);
+}
+
+/* ── Search (Caixa de pesquisa) ── */
+.search-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+  gap: 20px;
+}
+
+.search {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.08);
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 10px 15px;
+  border-radius: 10px;
+  background: var(--cyan);
+  color: black;
+  font-weight: bold;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.08);
+}
+
+/* ── Tabela ── */
+.tabela {
+  margin-top: 30px;
+  background: var(--glass);
+  border-radius: 12px;
+  padding: 15px;
+  border: 1px solid var(--border);
+}
+
+.tabela table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela tr {
+  display: grid;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.tabela-4 tr {
+  grid-template-columns: 2fr 2fr 2fr 1fr;
+}
+.tabela-5 tr {
+  grid-template-columns: 2fr 2fr 2fr 2fr 1fr;
+}
+.tabela-6 tr {
+  grid-template-columns: 2fr 2fr 2fr 2fr 2fr 1fr;
+}
+
+.tabela th {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.tabela thead tr th {
+  color: var(--text);
+}
+
+/* ── Modal ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-overlay.ativo {
+  display: flex;
+}
+
+.modal {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 30px;
+  width: 400px;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal h2 {
+  color: var(--cyan);
+}
+
+.modal input,
+.modal select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.modal-buttons button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.modal-buttons button[type="button"] {
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.modal-buttons button[type="submit"] {
+  background: var(--cyan);
+  color: black;
+}
