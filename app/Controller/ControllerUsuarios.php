@@ -12,9 +12,9 @@
             header("Location: /TCC/public/index.php?url=login");
             exit;
         }
+        if ($_SESSION['tipo'] != 1) {
 
-        if ($_SESSION['tipo_usuario'] != 1) {
-            header("Location: /TCC/public/index.php?url=home");
+        header("Location: /TCC/public/index.php?url=home");
             exit;
         } 
 

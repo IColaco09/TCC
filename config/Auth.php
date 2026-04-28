@@ -8,5 +8,5 @@
         if(!in_array($_SESSION['tipo_usuario'], $tipo_user)){
             header("Location: /TCC/public/index.php?url=home");
             exit;
-        }
+        }   
     }
