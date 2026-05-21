@@ -27,20 +27,20 @@
             return $stmt->execute();
         }
 
-        public function editar($id, $nome, $email, $senha, $tipo_usuario){
+        public function editar($id, $nome, $email, $senha, $ativo, $tipo_usuario){
             if($senha){
                 $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-                $stmt = $this->conn->prepare("UPDATE usuarios SET nome = ?, email = ?, senha = ?, tipo_usuario = ? WHERE id= ?");
-                $stmt->bind_param("sssii", $nome, $email, $senhaHash, $tipo_usuario, $id);
+                $stmt = $this->conn->prepare("UPDATE usuarios SET nome = ?, email = ?, senha = ?, ativo = ?, tipo_usuario = ? WHERE id= ?");
+                $stmt->bind_param("sssiii", $nome, $email, $senhaHash, $ativo, $tipo_usuario, $id);
             } else{
-                $stmt = $this->conn->prepare("UPDATE usuarios SET nome = ?, email = ?, tipo_usuario = ? WHERE id= ?");
-                $stmt->bind_param("ssii", $nome, $email, $tipo_usuario, $id);
+                $stmt = $this->conn->prepare("UPDATE usuarios SET nome = ?, email = ?, ativo = ?, tipo_usuario = ? WHERE id= ?");
+                $stmt->bind_param("ssiii", $nome, $email, $ativo, $tipo_usuario, $id);
             }
             return $stmt->execute();
         }
 
         public function excluir($id){
-            $stmt = $this->conn->prepare("DELETE FROM usuarios WHERE id = ?");
+            $stmt = $this->conn->prepare("UPDATE usuarios SET ativo = 0 WHERE id = ?");
             $stmt->bind_param("i", $id);
             $stmt->execute();
         }

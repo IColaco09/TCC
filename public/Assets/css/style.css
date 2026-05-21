@@ -383,14 +383,18 @@ h2 {
 .modal h2 {
   color: var(--cyan);
 }
+.modal input{
+  margin-bottom: 8px;
+}
 
 .modal input,
-.modal select {
+.modal select,
+.modal select option {
   width: 100%;
   padding: 12px;
   border-radius: 8px;
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.05);
+  background: #1a2030;
   color: var(--text);
 }
 
