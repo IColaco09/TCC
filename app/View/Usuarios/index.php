@@ -15,7 +15,7 @@ $perfis = [
   <title>Produtos</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/TCC/public/Assets/css/style.css">
-    <script src="/TCC/public/Assets/js/rotas.js"></script>
+  <script src="/TCC/public/Assets/js/rotas.js"></script>
   <script src="/TCC/public/Assets/js/modais.js" defer></script>
   <script src="/TCC/public/Assets/js/modalUsuarios.js" defer></script>
 </head>
@@ -25,7 +25,7 @@ $perfis = [
   <div class="home">
 
     <aside class="sidebar">
-      <h2 class="name">Sistema</h2> <!--Nome provisório, só pra ter por enquanto msm-->
+      <h2 class="name">NextCore</h2> <!--Nome provisório, só pra ter por enquanto msm-->
 
       <nav>
         <button onclick="rotaHome()">Início</button>
@@ -81,10 +81,11 @@ $perfis = [
                                                 <?= $usuario['ativo'] ?> 
                                                 )">Editar
                   </button>
-                </td>
-                <td><button onclick="abrirExcluir(<?= $usuario['id'] ?>,
-                                                '<?= htmlspecialchars($usuario['nome']) ?>'
-                                                )">Excluir
+                
+                  <button onclick="abrirExcluir(
+                    <?= $usuario['id'] ?>,
+                    '<?= htmlspecialchars($usuario['nome']) ?>'
+                  )">Excluir
                   </button>
                 </td>
               </tr>
@@ -135,6 +136,11 @@ $perfis = [
         <input type="text" name="nome" id="editarNome" placeholder="Nome">
         <input type="email" name="email" id="editarEmail" placeholder="E-mail">
         <input type="password" name="senha" placeholder="Nova senha (opcional)">
+        
+        <select name="ativo" id="editarAtivo">
+          <option value="1">Ativo</option>
+          <option value="0">Inativo</option>
+        </select>
 
         <select name="tipo_usuario" id="editarTipo">
           <option value="1">Admin</option>
@@ -153,7 +159,7 @@ $perfis = [
   <div class="modal-overlay" id="modalExcluir"><!-- Modal para excluir usuário -->
     <div class="modal">
       <h2>Excluir Usuario</h2>
-      <p>Tem certeza de que deseja excluir <b id="exluirNome"></b>?</p>
+      <p>Tem certeza de que deseja excluir <b id="excluirNome"></b>?</p>
 
       <div class="modal-buttons">
         <button type="button" onclick="fecharModal('modalExcluir')">Cancelar</button>

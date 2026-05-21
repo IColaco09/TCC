@@ -44,10 +44,11 @@
             $id = intval($_POST['id']);
             $nome = trim($_POST['nome']);
             $email = trim($_POST['email']);
+            $ativo = intval($_POST['ativo']);
             $tipo = intval($_POST['tipo_usuario']);
             $senha = $_POST['senha'] ?? '';
  
-            if ($this->model->editar($id, $nome, $email, $tipo, $senha)) {
+            if ($this->model->editar($id, $nome, $email, $senha, $ativo, $tipo)) {
                 $sucesso = "Usuário atualizado com sucesso!";
             } else {
                 $erro = "Erro ao atualizar usuário.";

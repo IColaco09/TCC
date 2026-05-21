@@ -156,8 +156,8 @@ http://localhost/TCC/public/index.php?url=login
 - [x] Login com autenticação segura (`password_hash` / `password_verify`)
 - [x] Dashboard com resumo de clientes, produtos e vendas
 - [x] Gestão de Usuários (listar, cadastrar, editar, excluir)
-- [ ] Gestão de Clientes
-- [ ] Gestão de Produtos
+- [X] Gestão de Clientes
+- [X] Gestão de Produtos
 - [ ] Gestão de Vendas
 - [ ] Gestão de Pedidos
 - [ ] Relatórios
