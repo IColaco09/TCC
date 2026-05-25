@@ -189,16 +189,16 @@
   <div class="modal-overlay" id="modalExcluir"><!-- Modal para confirmar exclusão -->
     <div class="modal">
       <h2>Confirmar Exclusão</h2>
-      <form action="/TCC/public/index.php?url=produtos">
-        <p>Tem certeza de que deseja excluir este produto?</p>
-        <div class="modal-buttons">
-          <button type="button" onclick="fecharModal('modalExcluir')">Cancelar</button>
-          <a id="Excluir" href="#">
-            <button type="button">Excluir</button>
-          </a>
-      </form>
+        <form action="/TCC/public/index.php?url=produtos">
+          <p>Tem certeza de que deseja excluir este produto?</p>
+          <div class="modal-buttons">
+            <button type="button" onclick="fecharModal('modalExcluir')">Cancelar</button>
+            <a id="Excluir" href="#">
+              <button type="button">Excluir</button>
+            </a>
+        </form>
+      </div>
     </div>
-  </div>
   </div>
 </body>
 

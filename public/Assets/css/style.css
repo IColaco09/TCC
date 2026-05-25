@@ -407,7 +407,7 @@ h2 {
 .modal h2 {
   color: var(--cyan);
 }
-.modal input {
+.modal input{
   margin-bottom: 8px;
 }
 
