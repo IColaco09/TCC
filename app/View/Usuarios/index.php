@@ -25,14 +25,14 @@ $perfis = [
   <div class="home">
 
     <aside class="sidebar">
-      <h2 class="name">NextCore</h2> <!--Nome provisório, só pra ter por enquanto msm-->
+      <h2 class="name">NextCore</h2>
 
       <nav>
         <button onclick="rotaHome()">Início</button>
         <button onclick="rotaProdutos()">Produtos</button>
         <button onclick="rotaClientes()">Clientes</button>
         <button onclick="rotaVendas()">Vendas</button>
-        <button onclick="rotaRelatorios()">Pedidos</button><!-- mudar a rota-->
+        <button onclick="rotaRelatorios()">Pedidos</button>
         <button onclick="rotaUsuarios()" class="active">Usuários</button>
       </nav>
 
@@ -74,15 +74,15 @@ $perfis = [
                 <td><?= htmlspecialchars(($usuario['email'])) ?></td> <!-- Exibe o email do usuário -->
                 <td><?= $perfis[$usuario['tipo_usuario']] ?? 'Perfil não encontrado' ?></td> <!-- Exibe o perfil do usuário usando o array de perfis -->
                 <td><?= $usuario['ativo'] ? 'Ativo' : 'Inativo' ?></td> <!-- Exibe o status do usuário -->
-                <td><button onclick="abrirEditar(<?= $usuario['id'] ?>,
+                <td><button class="actions-btn" onclick="abrirEditar(<?= $usuario['id'] ?>,
                                                 '<?= htmlspecialchars($usuario['nome']) ?>',
                                                 '<?= htmlspecialchars($usuario['email']) ?>',
                                                 <?= $usuario['tipo_usuario'] ?>,
                                                 <?= $usuario['ativo'] ?> 
                                                 )">Editar
                   </button>
-                
-                  <button onclick="abrirExcluir(
+
+                  <button class="actions-btn" onclick="abrirExcluir(
                     <?= $usuario['id'] ?>,
                     '<?= htmlspecialchars($usuario['nome']) ?>'
                   )">Excluir
@@ -136,7 +136,7 @@ $perfis = [
         <input type="text" name="nome" id="editarNome" placeholder="Nome">
         <input type="email" name="email" id="editarEmail" placeholder="E-mail">
         <input type="password" name="senha" placeholder="Nova senha (opcional)">
-        
+
         <select name="ativo" id="editarAtivo">
           <option value="1">Ativo</option>
           <option value="0">Inativo</option>

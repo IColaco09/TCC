@@ -18,14 +18,14 @@
   <div class="home">
 
     <aside class="sidebar">
-      <h2 class="name">NextCore</h2> <!--Nome provisório, só pra ter por enquanto msm-->
+      <h2 class="name">NextCore</h2>
 
       <nav>
         <button onclick="rotaHome()">Início</button>
         <button onclick="rotaProdutos()" class="active">Produtos</button>
         <button onclick="rotaClientes()">Clientes</button>
         <button onclick="rotaVendas()">Vendas</button>
-        <button onclick="rotaPedidos()">Pedidos</button><!-- mudar a rota-->
+        <button onclick="rotaPedidos()">Pedidos</button>
         <button onclick="rotaUsuarios()">Usuários</button>
       </nav>
 
@@ -49,7 +49,7 @@
       </section>
 
       <section class="tabela">
-        <table class="tabela-4">
+        <table class="tabela-6">
           <thead>
             <tr>
               <th>Código</th>
@@ -72,15 +72,15 @@
                 <td><?= htmlspecialchars(($produto['estoque'])) ?></td>
                 <td>
                   <?php
-                    $nomeCategoria = 'Não encontrado';
-                    foreach ($categorias as $cat) {
-                      if ($cat['id'] == $produto['categoria_id']) {
-                        $nomeCategoria = $cat['nome'];
-                        break;
-                      }
+                  $nomeCategoria = 'Não encontrado';
+                  foreach ($categorias as $cat) {
+                    if ($cat['id'] == $produto['categoria_id']) {
+                      $nomeCategoria = $cat['nome'];
+                      break;
                     }
-                    echo htmlspecialchars($nomeCategoria);
-                  ?>            
+                  }
+                  echo htmlspecialchars($nomeCategoria);
+                  ?>
                 </td>
                 <td>
                   <button onclick="verProduto()">
@@ -88,7 +88,7 @@
                   </button>
                 </td>
                 <td>
-                  <button onclick="abrirEditar(
+                  <button class="actions-btn" onclick="abrirEditar(
                     <?= $produto['codigo'] ?>,
                     <?= $produto['nome'] ?>,
                     <?= $produto['preco'] ?>,
@@ -96,9 +96,8 @@
                     <?= $produto['categoria_id'] ?>
                     )">Editar
                   </button>
-                </td>
-                <td>
-                  <button onclick="abrirExcluir(
+
+                  <button class="actions-btn" onclick="abrirExcluir(
                   '<?= htmlspecialchars(($produto['codigo'])) ?>',
                   '<?= htmlspecialchars(($produto['nome'])) ?>'
                   )">Excluir

@@ -17,14 +17,14 @@
   <div class="home">
 
     <aside class="sidebar">
-      <h2 class="name">NextCore</h2> <!--Nome provisório, só pra ter por enquanto msm-->
+      <h2 class="name">NextCore</h2>
 
       <nav>
         <button onclick="rotaHome()">Início</button>
         <button onclick="rotaProdutos()">Produtos</button>
         <button onclick="rotaClientes()" class="active">Clientes</button>
         <button onclick="rotaVendas()">Vendas</button>
-        <button onclick="rotaRelatorios()">Pedidos</button><!-- mudar a rota-->
+        <button onclick="rotaRelatorios()">Pedidos</button>
         <button onclick="rotaUsuarios()">Usuários</button>
       </nav>
 
@@ -93,23 +93,23 @@
   <div class="modal-overlay" id="modalCadastrar"><!-- Modal para cadastrar cliente -->
     <div class="modal">
       <h2>Cadastrar Cliente</h2>
-    
-    <form action="/TCC/public/index.php?url=clientes" method="POST">
-      <input type="hidden" name="acao" value="cadastrar">
 
-      <input type="text" name="nome" id="cadastrarNome" placeholder="Nome" required>
-      <input type="text" name="cpf_cnpj" id="cadastrarCpf_cnpj" placeholder="CPF/CNPJ" required>
-      <input type="text" name="telefone" id="cadastrarTelefone" placeholder="Telefone" required>
-      <input type="text" name="email" id="cadastrarEmail" placeholder="Email" required>
-      <input type="text" name="endereco" id="cadastrarEndereco" placeholder="Endereço" required>
-      <input type="text" name="cidade" id="cadastrarCidade" placeholder="Cidade" required>
-      <input type="text" name="estado" id="cadastrarEstado" placeholder="Estado" required>
-      <input type="text" name="cep" id="cadastrarCep" placeholder="CEP" required>
-      <div class="modal-buttons">
-        <button type="submit">Cadastrar</button>
-        <button type="button" onclick="fecharModal('modalCadastrar')">Cancelar</button>
-      </div>
-    </form>
+      <form action="/TCC/public/index.php?url=clientes" method="POST">
+        <input type="hidden" name="acao" value="cadastrar">
+
+        <input type="text" name="nome" id="cadastrarNome" placeholder="Nome" required>
+        <input type="text" name="cpf_cnpj" id="cadastrarCpf_cnpj" placeholder="CPF/CNPJ" required>
+        <input type="text" name="telefone" id="cadastrarTelefone" placeholder="Telefone" required>
+        <input type="text" name="email" id="cadastrarEmail" placeholder="Email" required>
+        <input type="text" name="endereco" id="cadastrarEndereco" placeholder="Endereço" required>
+        <input type="text" name="cidade" id="cadastrarCidade" placeholder="Cidade" required>
+        <input type="text" name="estado" id="cadastrarEstado" placeholder="Estado" required>
+        <input type="text" name="cep" id="cadastrarCep" placeholder="CEP" required>
+        <div class="modal-buttons">
+          <button type="submit">Cadastrar</button>
+          <button type="button" onclick="fecharModal('modalCadastrar')">Cancelar</button>
+        </div>
+      </form>
     </div>
   </div>
 

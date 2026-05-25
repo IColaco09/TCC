@@ -15,14 +15,13 @@
   <div class="home">
 
     <aside class="sidebar">
-      <h2 class="name">Sistema</h2> <!--Nome provisório, só pra ter por enquanto msm-->
-
+      <h2 class="name">NextCore</h2>
       <nav>
         <button onclick="rotaHome()" class="active">Início</button>
         <button onclick="rotaProdutos()">Produtos</button>
         <button onclick="rotaClientes()">Clientes</button>
         <button onclick="rotaVendas()">Vendas</button>
-        <button onclick="rotaPedidos()">Pedidos</button><!-- mudar a rota-->
+        <button onclick="rotaPedidos()">Pedidos</button>
         <button onclick="rotaUsuarios()">Usuários</button>
       </nav>
 
