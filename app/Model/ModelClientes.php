@@ -14,29 +14,29 @@ class ModelClientes {
     
     // Busca todos os clientes
     public function buscarTodos() {
-        $res = $this->conn->query("SELECT id, nome, cpf_cnpj, contato FROM clientes ORDER BY nome");
+        $res = $this->conn->query("SELECT id, nome, cpf_cnpj, telefone, email FROM clientes ORDER BY nome");
         return $res->fetch_all(MYSQLI_ASSOC);
     }
 
     // Busca cliente pelo ID
     public function buscarPorId($id) {
-        $stmt = $this->conn->prepare("SELECT id, nome, cpf_cnpj, contato FROM clientes WHERE id = ?");
+        $stmt = $this->conn->prepare("SELECT id, nome, cpf_cnpj, telefone, email FROM clientes WHERE id = ?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
     }
 
     // Insere novo cliente no Banco
-    public function cadastrar($nome, $cpf_cnpj, $contato) {
-        $stmt = $this->conn->prepare("INSERT INTO clientes (nome, cpf_cnpj, contato) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $nome, $cpf_cnpj, $contato);
+    public function cadastrar($nome, $cpf_cnpj, $telefone, $email) {
+        $stmt = $this->conn->prepare("INSERT INTO clientes (nome, cpf_cnpj, telefone, email) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $nome, $cpf_cnpj, $telefone, $email);
         return $stmt->execute();
     }
 
     // Atualiza os dados de um cliente existente
-    public function atualizar($id, $nome, $cpf_cnpj, $contato) {
-        $stmt = $this->conn->prepare("UPDATE clientes SET nome = ?, cpf_cnpj = ?, contato = ? WHERE id = ?");
-        $stmt->bind_param("sssi", $nome, $cpf_cnpj, $contato, $id);
+    public function atualizar($id, $nome, $cpf_cnpj, $telefone, $email) {
+        $stmt = $this->conn->prepare("UPDATE clientes SET nome = ?, cpf_cnpj = ?, telefone = ?, email = ? WHERE id = ?");
+        $stmt->bind_param("ssssi", $nome, $cpf_cnpj, $telefone, $email, $id);
         return $stmt->execute();
     }
 

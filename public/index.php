@@ -34,17 +34,21 @@ switch ($url) {
 
     case 'clientes':
         require __DIR__ .'/../app/Controller/ControllerClientes.php';
-        (new ControllerClientes())->index();
+        (new ControllerClientes())->clientes();
         break;
 
     case 'relatorios':
-        require __DIR__ .'/../app/Controller/ControllerRelatorios.php';
-        (new ControllerRelatorios())->index();
+        require __DIR__ . '/../app/Controller/ControllerRelatorios.php';
+        (new ControllerRelatorios())->relatorios();
+
+    case 'pedidos':
+        require __DIR__ .'/../app/Controller/ControllerPedidos.php';
+        (new ControllerPedidos())->index();
         break;
 
     case 'produtos':
         require __DIR__ .'/../app/Controller/ControllerProdutos.php';
-        (new ControllerProdutos())->index();
+        (new ControllerProdutos())->produtos();
         break;
 
     case 'vendas':

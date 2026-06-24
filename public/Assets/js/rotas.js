@@ -1,5 +1,5 @@
 function rotaHome(){
-    window.location ='/TCC/public/index.php?url=home';
+    window.location ='/../public/index.php?url=home';
 }
 
 function rotaProdutos(){
@@ -27,7 +27,7 @@ function rotaRelatorios(){
 }
 
 function rotaSair(){
-    window.location ='/TCC/public/index.php?url=login';
+    window.location ='/../public/index.php?url=login';
 }
 
 function rotaVoltar(){

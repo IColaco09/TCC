@@ -213,7 +213,8 @@ h2 {
   color: var(--cyan);
 }
 
-.logout {
+.logout,
+.modal-buttons button[type="button"] {
   border: 1px solid var(--border);
   padding: 10px;
   border-radius: 8px;
@@ -226,6 +227,10 @@ h2 {
   color: var(--cyan);
 }
 
+.modal-buttons button[type="button"]:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
 /* ── Content ── */
 .content {
   flex: 1;
@@ -348,6 +353,25 @@ h2 {
   text-align: left;
 }
 
+.tabela td {
+  display: flex;
+  gap: 16px;
+}
+
+.tabela thead tr th {
+  color: var(--text);
+}
+
+.actions-btn {
+  color: var(--muted);
+  font-size: 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.actions-btn:hover {
+  color: var(--cyan);
+}
 .tabela thead tr th {
   color: var(--text);
 }
@@ -383,14 +407,18 @@ h2 {
 .modal h2 {
   color: var(--cyan);
 }
+.modal input{
+  margin-bottom: 8px;
+}
 
 .modal input,
-.modal select {
+.modal select,
+.modal select option {
   width: 100%;
   padding: 12px;
   border-radius: 8px;
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.05);
+  background: #1a2030;
   color: var(--text);
 }
 
@@ -405,11 +433,6 @@ h2 {
   padding: 10px 20px;
   border-radius: 8px;
   font-weight: bold;
-}
-
-.modal-buttons button[type="button"] {
-  border: 1px solid var(--border);
-  color: var(--muted);
 }
 
 .modal-buttons button[type="submit"] {

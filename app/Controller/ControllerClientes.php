@@ -1,87 +1,80 @@
-<?php 
+<?php
 
 require_once __DIR__ . '/../Model/ModelClientes.php';
 
-class ControllerClientes {
+class ControllerClientes
+{
 
-private $model;
+    private $model;
 
-
-
-public function __construct() {
-if (session_status() == PHP_SESSION_NONE) {
-    session_start(['cookie_httponly' => true, 'use_only_cookies' => true]);
-}
-
-if (!isset($_SESSION['id'])) {
-    header("Location: /TCC/public/index.php?url=login");
-    exit;
-}
-
-$this->model = new ModelClientes();
-
-}
-
-
-
-public function clientes() {
-    $sucesso = '';
-
-    $erro = '';
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['acao'] ?? '') === 'cadastrar') {
-        $nome = trim($_POST['nome']);
-        $cpf_cnpj = trim($_POST['cpf_cnpj']);
-        $contato = trim($_POST['contato']);
-
-        if ($this->model->cadastrar($nome, $cpf_cnpj, $contato)) {
-            $sucesso = "Cliente cadastrado com sucesso!";
-        } else {
-            $erro = "Erro ao cadastrar cliente.";
+    public function __construct()
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start(['cookie_httponly' => true, 'use_only_cookies' => true]);
         }
-    }
 
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['acao'] ?? '') === 'editar') {
-        $id = intval($_POST['id']);
-        $nome = trim($_POST['nome']);
-        $cpf_cnpj = trim($_POST['cpf_cnpj']);
-        $contato = trim($_POST['contato']);
-
-        if ($this->model->atualizar($id, $nome, $cpf_cnpj, $contato)) {
-            $sucesso = "Cliente atualizado com sucesso!";
-        } else {
-            $erro = "Erro ao atualizar cliente.";
+        if (!isset($_SESSION['id'])) {
+            header("Location: /../public/index.php?url=login");
+            exit;
         }
+
+        $this->model = new ModelClientes();
     }
 
 
-    if(isset($_GET['excluir'])) {
-        $id = intval($_GET['excluir']);
+    public function clientes()
+    {
 
-        $this->model->excluir($id);
-        
-          header("Location: /TCC/public/index.php?url=clientes");
+        $sucesso = '';
+        $erro = '';
 
-        exit;
+        //Cadastro de cliente
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['acao'] ?? '') === 'cadastrar') {
+            $nome = trim($_POST['nome']);
+            $cpf_cnpj = trim($_POST['cpf_cnpj']);
+            $telefone = trim($_POST['telefone']);
+            $email = trim($_POST['email']);
+
+            if ($this->model->cadastrar($nome, $cpf_cnpj, $telefone, $email)) {
+                $sucesso = "Cliente cadastrado com sucesso!";
+            } else {
+                $erro = "Erro ao cadastrar cliente.";
+            }
+        }
+
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['acao'] ?? '') === 'editar') {
+            $id = intval($_POST['id']);
+            $nome = trim($_POST['nome']);
+            $cpf_cnpj = trim($_POST['cpf_cnpj']);
+            $telefone = trim($_POST['telefone']);
+            $email = trim($_POST['email']);
+
+            if ($this->model->atualizar($id, $nome, $cpf_cnpj, $telefone, $email)) {
+                $sucesso = "Cliente atualizado com sucesso!";
+            } else {
+                $erro = "Erro ao atualizar cliente.";
+            }
+        }
+
+
+        if (isset($_GET['excluir'])) {
+            $id = intval($_GET['excluir']);
+
+            $this->model->excluir($id);
+
+            header("Location: /TCC/public/index.php?url=clientes");
+
+            exit;
+        }
+
+        $cliente_editar = null;
+        if (isset($_GET['editar'])) {
+            $cliente_editar = $this->model->buscarPorId(intval($_GET['editar']));
+        }
+
+        $clientes = $this->model->buscarTodos();
+
+        include __DIR__ . '/../View/Clientes/index.php';
     }
-
-    $cliente_editar = null;
-    if (isset($_GET['editar'])) {
-        $cliente_editar = $this->model->buscarPorId(intval($_GET['editar']));
-    }
-
-    $clientes = $this->model->buscarTodos();
-
-    include __DIR__ . '/../View/Clientes/index.php';
-
-
-    }
-
 }
-        
-        
-    
-
-
-
