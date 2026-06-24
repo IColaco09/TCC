@@ -24,7 +24,7 @@
         <button onclick="rotaProdutos()">Produtos</button>
         <button onclick="rotaClientes()" class="active">Clientes</button>
         <button onclick="rotaVendas()">Vendas</button>
-        <button onclick="rotaRelatorios()">Pedidos</button>
+        <button onclick="rotaPedidos()">Pedidos</button>
         <button onclick="rotaUsuarios()">Usuários</button>
       </nav>
 
