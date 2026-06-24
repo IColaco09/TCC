@@ -1,33 +1,33 @@
 function rotaHome(){
-    window.location ='/../public/index.php?url=home';
+    window.location ='?url=home';
 }
 
 function rotaProdutos(){
-    window.location ='/TCC/public/index.php?url=produtos';
+    window.location ='?url=produtos';
 }
 
 function rotaClientes(){
-    window.location ='/TCC/public/index.php?url=clientes';
+    window.location ='?url=clientes';
 }
 
 function rotaVendas(){
-    window.location ='/TCC/public/index.php?url=vendas';
+    window.location ='?url=vendas';
 }
 
 function rotaPedidos(){
-    window.location ='/TCC/public/index.php?url=pedidos';
+    window.location ='?url=pedidos';
 }
 
 function rotaUsuarios(){
-    window.location ='/TCC/public/index.php?url=usuarios';
+    window.location ='?url=usuarios';
 }
 
 function rotaRelatorios(){
-    window.location ='/TCC/public/index.php?url=relatorios';
+    window.location ='?url=relatorios';
 }
 
 function rotaSair(){
-    window.location ='/../public/index.php?url=login';
+    window.location ='?url=login';
 }
 
 function rotaVoltar(){

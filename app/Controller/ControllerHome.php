@@ -19,7 +19,7 @@
             // Verifica se o usuário está logado
 
             if (!isset($_SESSION['id'])) {
-                header("Location: /../public/index.php?url=login");
+                header("Location:?url=login");
                 exit;
             }
 

@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vendas</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/../public/Assets/css/style.css">
-  <script src="/../public/Assets/js/rotas.js"></script>
+  <link rel="stylesheet" href="<?= BASE_URL ?>/public/Assets/css/style.css">
+  <script src="<?= BASE_URL ?>/public/Assets/js/rotas.js"></script>
 </head>
 
 <body>
@@ -21,7 +21,7 @@
         <button onclick="rotaProdutos()">Produtos</button>
         <button onclick="rotaClientes()">Clientes</button>
         <button onclick="rotaVendas()" class="active">Vendas</button>
-        <button onclick="rotaRelatorios()">Pedidos</button>
+        <button onclick="rotaPedidos()">Pedidos</button>
         <button onclick="rotaUsuarios()">Usuários</button>
       </nav>
 

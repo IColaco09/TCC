@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Clientes</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/../public/Assets/css/style.css">
-  <script src="/../public/Assets/js/rotas.js"></script>
-  <script src="/../public/Assets/js/modais.js"></script>
-  <script src="/../public/Assets/js/modalClientes.js"></script>
+  <link rel="stylesheet" href="<?= BASE_URL ?>/public/Assets/css/style.css">
+  <script src="<?= BASE_URL ?>/public/Assets/js/rotas.js"></script>
+  <script src="<?= BASE_URL ?>/public/Assets/js/modais.js"></script>
+  <script src="<?= BASE_URL ?>/public/Assets/js/modalClientes.js"></script>
 </head>
 
 <body>
@@ -94,7 +94,7 @@
     <div class="modal">
       <h2>Cadastrar Cliente</h2>
 
-      <form action="/../public/index.php?url=clientes" method="POST">
+      <form action="index.php?url=clientes" method="POST">
         <input type="hidden" name="acao" value="cadastrar">
 
         <input type="text" name="nome" id="cadastrarNome" placeholder="Nome" required>
@@ -117,7 +117,7 @@
     <div class="modal">
       <h2>Editar Cliente</h2>
     </div>
-    <form action="/../public/index.php?url=clientes" method="POST">
+    <form action="index.php?url=clientes" method="POST">
       <input type="hidden" name="acao" value="editar">
       <input type="hidden" name="id" id="editarId">
 
@@ -140,7 +140,7 @@
     <div class="modal">
       <h2>Excluir Cliente</h2>
       <p>Tem certeza que deseja excluir este cliente?</p>
-      <form action="/../public/index.php?url=clientes" method="POST">
+      <form action="index.php?url=clientes" method="POST">
         <input type="hidden" name="acao" value="excluir">
         <input type="hidden" name="id" id="excluirId">
         <button type="submit">Sim, Excluir</button>

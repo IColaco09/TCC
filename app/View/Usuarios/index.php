@@ -14,10 +14,10 @@ $perfis = [
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Produtos</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/../public/Assets/css/style.css">
-  <script src="/../public/Assets/js/rotas.js"></script>
-  <script src="/../public/Assets/js/modais.js" defer></script>
-  <script src="/../public/Assets/js/modalUsuarios.js" defer></script>
+  <link rel="stylesheet" href="<?= BASE_URL ?>/public/Assets/css/style.css">
+  <script src="<?= BASE_URL ?>/public/Assets/js/rotas.js"></script>
+  <script src="<?= BASE_URL ?>/public/Assets/js/modais.js" defer></script>
+  <script src="<?= BASE_URL ?>/public/Assets/js/modalUsuarios.js" defer></script>
 </head>
 
 <body>
@@ -32,7 +32,7 @@ $perfis = [
         <button onclick="rotaProdutos()">Produtos</button>
         <button onclick="rotaClientes()">Clientes</button>
         <button onclick="rotaVendas()">Vendas</button>
-        <button onclick="rotaRelatorios()">Pedidos</button>
+        <button onclick="rotaPedidos()">Pedidos</button>
         <button onclick="rotaUsuarios()" class="active">Usuários</button>
       </nav>
 
@@ -103,7 +103,7 @@ $perfis = [
   <div class="modal-overlay" id="modalCadastrar"><!-- Modal para cadastrar usuário -->
     <div class="modal">
       <h2>Cadastrar Usuário</h2>
-      <form method="POST" action="/../public/index.php?url=usuarios">
+      <form method="POST" action="/public/index.php?url=usuarios">
         <input type="hidden" name="acao" value="cadastrar">
 
         <input type="text" name="nome" id="cadastrarNome" placeholder="Nome" required>
@@ -129,7 +129,7 @@ $perfis = [
   <div class="modal-overlay" id="modalEditar"><!-- Modal para editar usuário -->
     <div class="modal">
       <h2>Editar Usuário</h2>
-      <form method="POST" action="/../public/index.php?url=usuarios">
+      <form method="POST" action="/public/index.php?url=usuarios">
         <input type="hidden" name="acao" value="editar">
         <input type="hidden" name="id" id="editarId">
 

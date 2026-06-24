@@ -9,12 +9,12 @@
             session_start(['cookie_httponly' => true, 'use_only_cookies' => true]);
         }
         if (!isset($_SESSION['id'])) {
-            header("Location: /../public/index.php?url=login");
+            header("Location: ?url=login");
             exit;
         }
         if ($_SESSION['tipo'] != 1) {
 
-        header("Location: /../public/index.php?url=home");
+        header("Location: ?url=home");
             exit;
         } 
 
@@ -62,7 +62,7 @@
                 $erro = "Você não pode excluir seu próprio usuário.";
             } else {
                 $this->model->excluir($id);
-                header("Location: /TCC/public/index.php?url=usuarios");
+                header("Location: ?url=usuarios");
                 exit;
             }
         }

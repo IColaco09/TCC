@@ -12,9 +12,7 @@ class ModelLogin {
 
     public function procurarUsuario($usuario) {
         $stmt = $this->conn->prepare("SELECT * FROM usuarios WHERE email = ?");
-        $stmt->bind_param("s", $usuario);
-        $stmt->execute();
-        $res = $stmt->get_result();
-        return $res->fetch_assoc();
+        $stmt->execute([$usuario]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
