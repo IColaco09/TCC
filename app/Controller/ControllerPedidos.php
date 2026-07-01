@@ -1,7 +1,7 @@
 <?php
 
 class ControllerPedidos {
-    public function __construct() {
+    /*public function __construct() {
         if (session_status() == PHP_SESSION_NONE) {
             session_start(['cookie_httponly' => true, 'use_only_cookies' => true]);
         }
@@ -12,7 +12,7 @@ class ControllerPedidos {
         }
 
         $this->model = new ModelProdutos();
-    }
+    }*/
 
     public function pedidos() {
         include __DIR__ . '/../View/Pedidos/index.php';

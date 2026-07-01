@@ -86,57 +86,160 @@ C:/xampp/htdocs/TCC
 Acesse o phpMyAdmin (`http://localhost/phpmyadmin`) e crie um banco chamado `sistemacbs`, depois execute o SQL abaixo:
 
 ```sql
-CREATE DATABASE sistemacbs;
-USE sistemacbs;
+CREATE DATABASE IF NOT EXISTS `tcc_provisorio` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `tcc_provisorio`;
 
-CREATE TABLE usuarios (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nome VARCHAR(100) NOT NULL,
-  email VARCHAR(100) NOT NULL UNIQUE,
-  senha VARCHAR(255) NOT NULL,
-  tipo_usuario INT NOT NULL,
-  ativo TINYINT DEFAULT 1
-);
+-- --------------------------------------------------------
+-- Tabela: categorias
+-- --------------------------------------------------------
+CREATE TABLE `categorias` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) NOT NULL,
+  `descricao` text DEFAULT NULL,
+  `criado_em` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nome` (`nome`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE clientes (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nome VARCHAR(100) NOT NULL,
-  cpf_cnpj VARCHAR(20),
-  contato VARCHAR(20),
-  ativo TINYINT DEFAULT 1
-);
+-- --------------------------------------------------------
+-- Tabela: clientes
+-- --------------------------------------------------------
+CREATE TABLE `clientes` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `nome` varchar(150) NOT NULL,
+  `cpf_cnpj` varchar(20) DEFAULT NULL,
+  `email` varchar(150) DEFAULT NULL,
+  `telefone` varchar(20) DEFAULT NULL,
+  `endereco` varchar(255) DEFAULT NULL,
+  `cidade` varchar(100) DEFAULT NULL,
+  `estado` char(2) DEFAULT NULL,
+  `cep` varchar(10) DEFAULT NULL,
+  `ativo` tinyint(1) NOT NULL DEFAULT 1,
+  `criado_em` datetime NOT NULL DEFAULT current_timestamp(),
+  `atualizado_em` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `cpf_cnpj` (`cpf_cnpj`),
+  KEY `idx_clientes_nome` (`nome`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE produtos (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  codigo VARCHAR(50) NOT NULL,
-  nome VARCHAR(100) NOT NULL,
-  preco DECIMAL(10,2) NOT NULL,
-  estoque INT DEFAULT 0,
-  tipo INT,
-  ativo TINYINT DEFAULT 1
-);
+-- --------------------------------------------------------
+-- Tabela: historico
+-- --------------------------------------------------------
+CREATE TABLE `historico` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `usuario_id` int(10) UNSIGNED DEFAULT NULL,
+  `tabela` varchar(50) NOT NULL,
+  `registro_id` int(10) UNSIGNED NOT NULL,
+  `acao` enum('criacao','edicao','exclusao','status') NOT NULL,
+  `descricao` text DEFAULT NULL,
+  `criado_em` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `fk_hist_usuario` (`usuario_id`),
+  KEY `idx_historico_tabela` (`tabela`,`registro_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE pedidos (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  cliente_id INT,
-  produto VARCHAR(100),
-  quantidade INT,
-  total DECIMAL(10,2),
-  data DATE,
-  status VARCHAR(50) DEFAULT 'pendente'
-);
-```
+-- --------------------------------------------------------
+-- Tabela: pedidos
+-- --------------------------------------------------------
+CREATE TABLE `pedidos` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `cliente_id` int(10) UNSIGNED NOT NULL,
+  `usuario_id` int(10) UNSIGNED NOT NULL,
+  `status` enum('aberto','em_andamento','concluido','cancelado') NOT NULL DEFAULT 'aberto',
+  `observacoes` text DEFAULT NULL,
+  `total` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `criado_em` datetime NOT NULL DEFAULT current_timestamp(),
+  `atualizado_em` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `fk_ped_usuario` (`usuario_id`),
+  KEY `idx_pedidos_cliente` (`cliente_id`),
+  KEY `idx_pedidos_status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-**4. Crie o usuário admin**
-```sql
-INSERT INTO usuarios (nome, email, senha, tipo_usuario)
-VALUES ('Admin', 'admin@email.com', '$2y$10$HASH_GERADO_PELO_PHP', 1);
-```
-> Gere o hash com `password_hash('sua_senha', PASSWORD_DEFAULT)` no PHP.
+-- --------------------------------------------------------
+-- Tabela: pedido_itens
+-- --------------------------------------------------------
+CREATE TABLE `pedido_itens` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `pedido_id` int(10) UNSIGNED NOT NULL,
+  `produto_id` int(10) UNSIGNED NOT NULL,
+  `quantidade` int(11) NOT NULL DEFAULT 1,
+  `preco_unit` decimal(10,2) NOT NULL,
+  `subtotal` decimal(10,2) GENERATED ALWAYS AS (`quantidade` * `preco_unit`) STORED,
+  PRIMARY KEY (`id`),
+  KEY `fk_item_pedido` (`pedido_id`),
+  KEY `fk_item_produto` (`produto_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+-- Tabela: produtos
+-- --------------------------------------------------------
+CREATE TABLE `produtos` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `categoria_id` int(10) UNSIGNED DEFAULT NULL,
+  `codigo` varchar(50) DEFAULT NULL,
+  `nome` varchar(150) NOT NULL,
+  `descricao` text DEFAULT NULL,
+  `tipo` enum('produto','servico') NOT NULL DEFAULT 'produto',
+  `preco` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `estoque` int(11) NOT NULL DEFAULT 0,
+  `ativo` tinyint(1) NOT NULL DEFAULT 1,
+  `criado_em` datetime NOT NULL DEFAULT current_timestamp(),
+  `atualizado_em` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `codigo` (`codigo`),
+  KEY `fk_prod_categoria` (`categoria_id`),
+  KEY `idx_produtos_nome` (`nome`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+-- Tabela: usuarios
+-- --------------------------------------------------------
+CREATE TABLE `usuarios` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `senha` varchar(255) NOT NULL,
+  `tipo_usuario` int(11) NOT NULL,
+  `ativo` tinyint(1) NOT NULL DEFAULT 1,
+  `criado_em` datetime NOT NULL DEFAULT current_timestamp(),
+  `atualizado_em` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+-- Chaves estrangeiras
+-- --------------------------------------------------------
+ALTER TABLE `historico`
+  ADD CONSTRAINT `fk_hist_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL;
+
+ALTER TABLE `pedidos`
+  ADD CONSTRAINT `fk_ped_cliente` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`),
+  ADD CONSTRAINT `fk_ped_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`);
+
+ALTER TABLE `pedido_itens`
+  ADD CONSTRAINT `fk_item_pedido` FOREIGN KEY (`pedido_id`) REFERENCES `pedidos` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_item_produto` FOREIGN KEY (`produto_id`) REFERENCES `produtos` (`id`);
+
+ALTER TABLE `produtos`
+  ADD CONSTRAINT `fk_prod_categoria` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`id`) ON DELETE SET NULL;
+
+-- --------------------------------------------------------
+-- Inserção perfil de admin
+-- --------------------------------------------------------
+INSERT INTO `usuarios` (`nome`, `email`, `senha`, `tipo_usuario`, `ativo`) VALUES
+('Admin', 'admin@tcc.local', '$2y$10$bIuceYW5HhQjgBXTLBLyaOCs0JmCMAiDlftZgnsHxKTqtaizQ559e', 1, 1);
+-- Copie até aqui !!!
+
+Email: admin@tcc.local
+Senha em Hash: '$2y$10$bIuceYW5HhQjgBXTLBLyaOCs0JmCMAiDlftZgnsHxKTqtaizQ559e'
+--Em caso de mal funcionamento entrar em contato com Dev Responsavel
+
 
 **5. Acesse o sistema**
 ```
-http://localhost/TCC/public/index.php?url=login
+http://localhost/TCC/?url=login
 ```
 
 ---
@@ -158,7 +261,6 @@ http://localhost/TCC/public/index.php?url=login
 - [x] Gestão de Usuários (listar, cadastrar, editar, excluir)
 - [X] Gestão de Clientes
 - [X] Gestão de Produtos
-- [ ] Gestão de Vendas
 - [ ] Gestão de Pedidos
 - [ ] Relatórios
 

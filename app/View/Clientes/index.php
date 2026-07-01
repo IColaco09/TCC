@@ -23,7 +23,6 @@
         <button onclick="rotaHome()">Início</button>
         <button onclick="rotaProdutos()">Produtos</button>
         <button onclick="rotaClientes()" class="active">Clientes</button>
-        <button onclick="rotaVendas()">Vendas</button>
         <button onclick="rotaPedidos()">Pedidos</button>
         <button onclick="rotaUsuarios()">Usuários</button>
       </nav>
@@ -48,7 +47,7 @@
 
       <section class="tabela">
 
-        <table class="tabela-4">
+        <table class="tabela-5">
           <thead>
             <tr>
               <th>Nome</th>
@@ -70,7 +69,11 @@
                                                 '<?= htmlspecialchars($cliente['nome']) ?>',
                                                 '<?= htmlspecialchars($cliente['cpf_cnpj']) ?>',
                                                 '<?= htmlspecialchars($cliente['telefone']) ?>',
-                                                '<?= htmlspecialchars($cliente['email']) ?>'
+                                                '<?= htmlspecialchars($cliente['email']) ?>',
+                                                '<?= htmlspecialchars($cliente['endereco']) ?>',
+                                                '<?= htmlspecialchars($cliente['cidade']) ?>',
+                                                '<?= htmlspecialchars($cliente['estado']) ?>',
+                                                '<?= htmlspecialchars($cliente['cep']) ?>'
                                                 )">Editar
                   </button>
                 </td>
@@ -94,7 +97,7 @@
     <div class="modal">
       <h2>Cadastrar Cliente</h2>
 
-      <form action="index.php?url=clientes" method="POST">
+      <form action="<?= BASE_URL ?>/?url=clientes" method="POST">
         <input type="hidden" name="acao" value="cadastrar">
 
         <input type="text" name="nome" id="cadastrarNome" placeholder="Nome" required>
@@ -116,8 +119,8 @@
   <div class="modal-overlay" id="modalEditar"><!-- Modal para editar cliente -->
     <div class="modal">
       <h2>Editar Cliente</h2>
-    </div>
-    <form action="index.php?url=clientes" method="POST">
+  
+    <form action="<?= BASE_URL ?>/?url=clientes" method="POST">
       <input type="hidden" name="acao" value="editar">
       <input type="hidden" name="id" id="editarId">
 
@@ -134,18 +137,22 @@
         <button type="button" onclick="fecharModal('modalEditar')">Cancelar</button>
       </div>
     </form>
+    </div>
   </div>
 
-  <div class="modal-overlay" id="modalExcluir"><!-- Modal para excluir cliente -->
+  <div class="modal-overlay" id="modalExcluir"><!-- Modal para confirmar exclusão -->
     <div class="modal">
-      <h2>Excluir Cliente</h2>
-      <p>Tem certeza que deseja excluir este cliente?</p>
-      <form action="index.php?url=clientes" method="POST">
-        <input type="hidden" name="acao" value="excluir">
-        <input type="hidden" name="id" id="excluirId">
-        <button type="submit">Sim, Excluir</button>
-        <button type="button" onclick="fecharModal('modalExcluir')">Cancelar</button>
-      </form>
+      <h2>Confirmar Exclusão</h2>
+        <form action="<?= BASE_URL ?>/?url=clientes" method="POST">
+          <p>Tem certeza de que deseja excluir este cliente?</p>
+          <div class="modal-buttons">
+            <button type="button" onclick="fecharModal('modalExcluir')">Cancelar</button>
+            <a id="Excluir" href="#">
+              <button type="button">Excluir</button>
+            </a>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </body>

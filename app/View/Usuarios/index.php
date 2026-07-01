@@ -31,7 +31,6 @@ $perfis = [
         <button onclick="rotaHome()">Início</button>
         <button onclick="rotaProdutos()">Produtos</button>
         <button onclick="rotaClientes()">Clientes</button>
-        <button onclick="rotaVendas()">Vendas</button>
         <button onclick="rotaPedidos()">Pedidos</button>
         <button onclick="rotaUsuarios()" class="active">Usuários</button>
       </nav>
@@ -103,7 +102,7 @@ $perfis = [
   <div class="modal-overlay" id="modalCadastrar"><!-- Modal para cadastrar usuário -->
     <div class="modal">
       <h2>Cadastrar Usuário</h2>
-      <form method="POST" action="/public/index.php?url=usuarios">
+      <form method="POST" action="<?= BASE_URL ?>/?url=usuarios">
         <input type="hidden" name="acao" value="cadastrar">
 
         <input type="text" name="nome" id="cadastrarNome" placeholder="Nome" required>
@@ -129,7 +128,7 @@ $perfis = [
   <div class="modal-overlay" id="modalEditar"><!-- Modal para editar usuário -->
     <div class="modal">
       <h2>Editar Usuário</h2>
-      <form method="POST" action="/public/index.php?url=usuarios">
+      <form method="POST" action="<?= BASE_URL ?>/?url=usuarios">
         <input type="hidden" name="acao" value="editar">
         <input type="hidden" name="id" id="editarId">
 
@@ -158,7 +157,7 @@ $perfis = [
 
   <div class="modal-overlay" id="modalExcluir"><!-- Modal para excluir usuário -->
     <div class="modal">
-      <h2>Excluir Usuario</h2>
+      <h2>Excluir Usuário</h2>
       <p>Tem certeza de que deseja excluir <b id="excluirNome"></b>?</p>
 
       <div class="modal-buttons">

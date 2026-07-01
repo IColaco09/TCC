@@ -192,6 +192,8 @@ h2 {
 .name {
   margin-bottom: 30px;
   color: var(--cyan);
+  display: flex;
+  justify-content: center;
 }
 
 .sidebar nav {

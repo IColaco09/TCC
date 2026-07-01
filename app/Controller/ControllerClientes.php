@@ -34,8 +34,12 @@ class ControllerClientes
             $cpf_cnpj = trim($_POST['cpf_cnpj']);
             $telefone = trim($_POST['telefone']);
             $email = trim($_POST['email']);
+            $endereco = trim($_POST['endereco']);
+            $cidade = trim($_POST['cidade']);
+            $estado = trim($_POST['estado']);
+            $cep = trim($_POST['cep']);
 
-            if ($this->model->cadastrar($nome, $cpf_cnpj, $telefone, $email)) {
+            if ($this->model->cadastrar($nome, $cpf_cnpj, $telefone, $email, $endereco, $cidade, $estado, $cep)) {
                 $sucesso = "Cliente cadastrado com sucesso!";
             } else {
                 $erro = "Erro ao cadastrar cliente.";
@@ -49,8 +53,12 @@ class ControllerClientes
             $cpf_cnpj = trim($_POST['cpf_cnpj']);
             $telefone = trim($_POST['telefone']);
             $email = trim($_POST['email']);
+            $endereco = trim($_POST['endereco']);
+            $cidade = trim($_POST['cidade']);
+            $estado = trim($_POST['estado']);
+            $cep = trim($_POST['cep']);
 
-            if ($this->model->atualizar($id, $nome, $cpf_cnpj, $telefone, $email)) {
+            if ($this->model->atualizar($id, $nome, $cpf_cnpj, $telefone, $email, $endereco, $cidade, $estado, $cep )) {
                 $sucesso = "Cliente atualizado com sucesso!";
             } else {
                 $erro = "Erro ao atualizar cliente.";

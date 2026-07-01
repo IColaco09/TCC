@@ -10,7 +10,7 @@
 
 <body class="login-page">
 
-    <form method="POST" action="<?= BASE_URL ?>/public/index.php?url=login">
+    <form method="POST" action="<?= BASE_URL ?>/?url=login">
         <div class="form-container">
             <h2>Bem-vindo</h2>
             <p class="subtitle">Faça login para continuar</p>
