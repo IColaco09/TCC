@@ -1,6 +1,6 @@
 <?php
 
-    require_once __DIR__.'/../Model/ModelPedidos.php';
+    require_once __DIR__.'/../Model/ModelPedido.php';
     require_once __DIR__ . '/../../config/Auth.php';
 
     class ControllerPedidos {
@@ -18,7 +18,7 @@
 
             permitirEntrada([PERFIL_ADMIN, PERFIL_GERENTE, PERFIL_USER]);
 
-            $this->model = new ModelProdutos();
+            $this->model = new ModelPedidos();
         }
 
         public function pedidos() {
