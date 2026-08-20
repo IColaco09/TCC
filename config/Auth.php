@@ -1,12 +1,8 @@
 <?php
-    if(isset($_SESSION['id'])){
-        header("Location: /TCC/public/index.php?url=login");
+    
+    function permitirEntrada($tipos_permitidos) {
+    if (!isset($_SESSION['tipo']) || !in_array($_SESSION['tipo'], $tipos_permitidos)) {
+        header("Location: ?url=home");
         exit;
     }
-
-    function permitirEntrada($tipo_user){
-        if(!in_array($_SESSION['tipo_usuario'], $tipo_user)){
-            header("Location: /TCC/public/index.php?url=home");
-            exit;
-        }   
-    }
+}
