@@ -18,6 +18,8 @@
             exit;
         } 
 
+        permitirEntrada([PERFIL_ADMIN, PERFIL_GERENTE, PERFIL_USER]);
+        
         $this->model = new ModelUsuarios();
         }
 

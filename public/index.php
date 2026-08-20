@@ -41,6 +41,7 @@ switch ($url) {
     case 'relatorios':
         require __DIR__ . '/../app/Controller/ControllerRelatorios.php';
         (new ControllerRelatorios())->relatorios();
+        break;
 
     case 'pedidos':
         require __DIR__ .'/../app/Controller/ControllerPedidos.php';

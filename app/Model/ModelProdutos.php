@@ -1,4 +1,5 @@
 <?php 
+
     require_once __DIR__.'/../../config/modelbase/conexao.php';
 
     class ModelProdutos{
@@ -37,13 +38,13 @@
         }
 
         public function excluirProduto($codigo){
-            $stmt = $this->conn->prepare("DELETE FROM produtos WHERE codigo = ?");
-            $stmt->execute([$codigo]);
-            return $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt = $this->conn->prepare("DELETE FROM produtos WHERE codigo = ?");
+        return $stmt->execute([$codigo]); 
         }
 
         public function buscarPorCodigo($codigo){
             $stmt = $this->conn->prepare("SELECT codigo, nome, preco, descricao, estoque, tipo FROM produtos WHERE codigo = ?");
-            return $stmt->execute([$codigo]);
+            $stmt->execute([$codigo]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         }
     }
