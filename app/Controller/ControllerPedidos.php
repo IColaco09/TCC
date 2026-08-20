@@ -1,6 +1,7 @@
 <?php
 
     require_once __DIR__.'/../Model/ModelPedidos.php';
+    require_once __DIR__ . '/../../config/Auth.php';
 
     class ControllerPedidos {
 

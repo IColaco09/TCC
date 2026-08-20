@@ -1,6 +1,7 @@
 <?php
 
     require_once __DIR__.'/../Model/ModelProdutos.php';
+    require_once __DIR__ . '/../../config/Auth.php';
 
     class ControllerProdutos{
         private $model;
