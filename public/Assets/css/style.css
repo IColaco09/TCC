@@ -13,6 +13,7 @@
 :root {
   --cyan: #00e5ff;
   --green: #00ff80;
+  --red: #ff4d4d;
   --bg: #0d1117;
   --glass: rgba(255, 255, 255, 0.04);
   --border: rgba(255, 255, 255, 0.08);
@@ -347,6 +348,9 @@ h2 {
 .tabela-6 tr {
   grid-template-columns: 2fr 2fr 2fr 2fr 2fr 1fr;
 }
+.tabela-7 tr {
+  grid-template-columns: 0.6fr 1.4fr 2.2fr 1fr 1.4fr 1fr 1.6fr;
+}
 
 .tabela th {
   color: var(--muted);
@@ -358,6 +362,7 @@ h2 {
 .tabela td {
   display: flex;
   gap: 16px;
+  align-items: center;
 }
 
 .tabela thead tr th {
@@ -376,6 +381,60 @@ h2 {
 }
 .tabela thead tr th {
   color: var(--text);
+}
+
+/* ── Mensagens de sucesso/erro ── */
+.msg-sucesso,
+.msg-erro {
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-top: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.msg-sucesso {
+  background: rgba(0, 255, 128, 0.1);
+  border: 1px solid rgba(0, 255, 128, 0.3);
+  color: var(--green);
+}
+
+.msg-erro {
+  background: rgba(255, 77, 77, 0.1);
+  border: 1px solid rgba(255, 77, 77, 0.3);
+  color: var(--red);
+}
+
+/* ── Status badge (Pedidos) ── */
+.status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+
+.status-aberto {
+  background: rgba(0, 255, 255, 0.12);
+  color: var(--cyan);
+}
+
+.status-em_andamento {
+  background: rgba(255, 200, 0, 0.12);
+  color: #ffc800;
+}
+
+.status-concluido {
+  background: rgba(0, 255, 128, 0.12);
+  color: var(--green);
+}
+
+.status-cancelado {
+  background: rgba(255, 77, 77, 0.12);
+  color: var(--red);
 }
 
 /* ── Modal ── */
@@ -404,17 +463,24 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  overflow: hidden;
 }
 
 .modal h2 {
   color: var(--cyan);
 }
+
+.add-item {
+  color: var(--text);
+}
+
 .modal input{
   margin-bottom: 8px;
 }
 
 .modal input,
 .modal select,
+.modal textarea,
 .modal select option {
   width: 100%;
   padding: 12px;
@@ -422,6 +488,32 @@ h2 {
   border: 1px solid var(--border);
   background: #1a2030;
   color: var(--text);
+}
+
+.modal select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237a8a99' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 36px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.modal select option {
+  background: #1a2030;
+  color: var(--text);
+}
+
+.modal textarea {
+  margin-top: 4px;
+  resize: vertical;
+  min-height: 60px;
+  font-family: "Syne", sans-serif;
 }
 
 .modal-buttons {
@@ -441,3 +533,47 @@ h2 {
   background: var(--cyan);
   color: black;
 }
+
+/* ── Linha de item (modal de cadastro de Pedido) ── */
+.item-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.item-row select,
+.item-row input {
+  width: auto;
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+.item-row .produto-select {
+  flex: 1 1 100%; /* select do produto ocupa a linha toda sozinho */
+}
+
+.item-row input[name="quantidade[]"] {
+  flex: 1 1 70px;
+}
+
+.item-row input[name="preco_unit[]"] {
+  flex: 1 1 100px;
+}
+
+.item-row button {
+  flex: 0 0 auto;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  transition: 0.3s;
+}
+
+.item-row button:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+

@@ -1,5 +1,6 @@
 <?php
     require_once __DIR__ . '/../Model/ModelHome.php';
+    require_once __DIR__ . '/../../config/prg.php';
     require_once __DIR__ . '/../../config/Auth.php';
 
     class ControllerHome {
