@@ -117,8 +117,8 @@ $perfis = [
         </select>
 
         <div class="modal-buttons">
-          <button type="button" onclick="fecharModal('modalCadastrar')">Cancelar</button>
           <button type="submit">Cadastrar</button>
+          <button type="button" onclick="fecharModal('modalCadastrar')">Cancelar</button>
         </div>
 
       </form>

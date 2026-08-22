@@ -1,6 +1,8 @@
 <?php
 
     require_once __DIR__.'/../Model/ModelProdutos.php';
+    require_once __DIR__ . '/../../config/Auth.php';
+    require_once __DIR__ . '/../../config/prg.php';
 
     class ControllerProdutos{
         private $model;
@@ -34,10 +36,12 @@
                 $descricao = trim($_POST['descricao']);
 
                 if($this->model->cadastrarProduto($nome, $codigo, $preco, $descricao, $estoque, $tipo)) {
-                    $sucesso = "Produto cadastrado com sucesso!";
+                    definirMensagem('sucesso', "Produto cadastrado com sucesso!");
                 } else {
-                    $erro = "Erro ao cadastrar produto.";
+                    definirMensagem('erro', "Erro ao cadastrar produto.");
                 }
+
+                redirecionarPRG('?url=produtos');
             }
 
             // CADASTRAR TIPO
@@ -46,10 +50,12 @@
                 $desc = trim($_POST['desc']);
 
                 if ($this->model->cadastrarTipo($nome, $desc)) {
-                    $sucesso = "Tipo Cadastrado com Sucesso!";
+                    definirMensagem('sucesso', "Tipo Cadastrado com Sucesso!");
                 } else{
-                    $erro = "Erro ao cadastrar Tipo de Produto";
+                    definirMensagem('erro', "Erro ao cadastrar Tipo de Produto");
                 }
+
+                redirecionarPRG('?url=produtos');
             }
 
             // BUSCAR TIPO
@@ -65,20 +71,24 @@
                 $descricao = trim($_POST['descricao']);
 
                 if($this->model->editarProduto($nome, $preco, $descricao, $estoque, $tipo, $codigo)){
-                    $sucesso = "Produto atualizado com sucesso!";
+                    definirMensagem('sucesso', "Produto atualizado com sucesso!");
                 } else {
-                    $erro = "Erro ao atualizar produto.";
+                    definirMensagem('erro', "Erro ao atualizar produto.");
                 }
+
+                redirecionarPRG('?url=produtos');
             }
 
             // EXCLUIR
             if (isset($_GET['excluir'])) {
                 $codigo = intval($_GET['excluir']);
                 if($this->model->excluirProduto($codigo)){
-                    $sucesso = "Produto excluído com sucesso!";
+                    definirMensagem('sucesso', "Produto excluído com sucesso!");
                 } else {
-                    $erro = "Erro ao excluir produto.";
+                    definirMensagem('erro', "Erro ao excluir produto.");
                 }
+
+                redirecionarPRG('?url=produtos');
             }
 
             // BUSCAR

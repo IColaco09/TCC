@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../../config/Auth.php';
+require_once __DIR__ . '/../../config/prg.php';
 require_once __DIR__ . '/../Model/ModelClientes.php';
 
 class ControllerClientes
@@ -42,10 +44,12 @@ class ControllerClientes
             $cep = trim($_POST['cep']);
 
             if ($this->model->cadastrar($nome, $cpf_cnpj, $telefone, $email, $endereco, $cidade, $estado, $cep)) {
-                $sucesso = "Cliente cadastrado com sucesso!";
+                definirMensagem('sucesso', "Cliente cadastrado com sucesso!");
             } else {
-                $erro = "Erro ao cadastrar cliente.";
+                definirMensagem('erro', "Erro ao cadastrar cliente.");
             }
+
+            redirecionarPRG('?url=clientes');
         }
 
 
@@ -61,10 +65,11 @@ class ControllerClientes
             $cep = trim($_POST['cep']);
 
             if ($this->model->atualizar($id, $nome, $cpf_cnpj, $telefone, $email, $endereco, $cidade, $estado, $cep )) {
-                $sucesso = "Cliente atualizado com sucesso!";
+                definirMensagem('sucesso', "Cliente atualizado com sucesso!");
             } else {
-                $erro = "Erro ao atualizar cliente.";
+                definirMensagem('erro', "Erro ao atualizar cliente.");
             }
+            redirecionarPRG('?url=clientes');
         }
 
 

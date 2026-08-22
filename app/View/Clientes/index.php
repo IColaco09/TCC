@@ -65,7 +65,7 @@
                 <td><?= htmlspecialchars(($cliente['cpf_cnpj'])) ?></td> <!-- Exibe o CPF/CNPJ do cliente -->
                 <td><?= htmlspecialchars(($cliente['telefone'])) ?></td> <!-- Exibe o telefone do cliente -->
                 <td><?= htmlspecialchars(($cliente['email'])) ?></td> <!-- Exibe o email do cliente -->
-                <td><button onclick="abrirEditar(<?= $cliente['id'] ?>,
+                <td><button class="actions-btn" onclick="abrirEditar(<?= $cliente['id'] ?>,
                                                 '<?= htmlspecialchars($cliente['nome']) ?>',
                                                 '<?= htmlspecialchars($cliente['cpf_cnpj']) ?>',
                                                 '<?= htmlspecialchars($cliente['telefone']) ?>',
@@ -77,7 +77,7 @@
                                                 )">Editar
                   </button>
                 </td>
-                <td><button onclick="abrirExcluir(<?= $cliente['id'] ?>,
+                <td><button class="actions-btn" onclick="abrirExcluir(<?= $cliente['id'] ?>,
                                                 '<?= htmlspecialchars($cliente['nome']) ?>'
                                                 )">Excluir
                   </button>
