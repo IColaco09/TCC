@@ -229,11 +229,12 @@ ALTER TABLE `produtos`
 -- Inserção perfil de admin
 -- --------------------------------------------------------
 INSERT INTO `usuarios` (`nome`, `email`, `senha`, `tipo_usuario`, `ativo`) VALUES
-('Admin', 'admin@tcc.local', '$2y$10$bIuceYW5HhQjgBXTLBLyaOCs0JmCMAiDlftZgnsHxKTqtaizQ559e', 1, 1);
+('Admin', 'admin@tcc.local', '$2y$10$enB2zdsapejBpK5xYvnzIupjXc4PZjeyjoWL9WYMTYYqfh5c9MhfK', 1, 1);
 -- Copie até aqui !!!
 
 Email: admin@tcc.local
-Senha em Hash: '$2y$10$bIuceYW5HhQjgBXTLBLyaOCs0JmCMAiDlftZgnsHxKTqtaizQ559e'
+Senha: 12345
+Senha em Hash: '$2y$10$enB2zdsapejBpK5xYvnzIupjXc4PZjeyjoWL9WYMTYYqfh5c9MhfK'
 --Em caso de mal funcionamento entrar em contato com Dev Responsavel
 
 
