@@ -83,7 +83,7 @@ C:/xampp/htdocs/TCC
 
 **3. Crie o banco de dados**
 
-Acesse o phpMyAdmin (`http://localhost/phpmyadmin`) e crie um banco chamado `sistemacbs`, depois execute o SQL abaixo:
+Acesse o phpMyAdmin (`http://localhost/phpmyadmin`) e depois execute o SQL abaixo:
 
 ```sql
 CREATE DATABASE IF NOT EXISTS `tcc_provisorio` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -238,8 +238,9 @@ Senha em Hash: '$2y$10$enB2zdsapejBpK5xYvnzIupjXc4PZjeyjoWL9WYMTYYqfh5c9MhfK'
 --Em caso de mal funcionamento entrar em contato com Dev Responsavel
 
 
-**5. Acesse o sistema**
+
 ```
+**5. Acesse o sistema**
 http://localhost/TCC/?url=login
 ```
 
