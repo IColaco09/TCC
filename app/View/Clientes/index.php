@@ -59,7 +59,7 @@
 
       <section class="tabela">
 
-        <table class="tabela-com-ver tabela-5">
+        <table class="tabela-5">
           <thead>
             <tr>
               <th>Nome</th>

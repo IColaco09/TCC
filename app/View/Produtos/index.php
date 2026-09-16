@@ -60,7 +60,7 @@
       </section>
 
       <section class="tabela">
-        <table class="tabela-com-ver tabela-6">
+        <table class="tabela-6">
           <thead>
             <tr>
               <th>Código</th>

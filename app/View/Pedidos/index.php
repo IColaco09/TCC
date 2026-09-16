@@ -55,7 +55,7 @@
       </section>
 
       <section class="tabela">
-        <table class="tabela-com-ver tabela-7">
+        <table class="tabela-7">
           <thead>
             <tr>
               <th>Pedido</th>
