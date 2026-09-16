@@ -76,7 +76,8 @@
                                                 '<?= htmlspecialchars($cliente['cep']) ?>'
                                                 )">Editar
                   </button>
-                  <button class="actions-btn" onclick="abrirExcluir(<?= $cliente['id'] ?>,
+                </td>
+                <td><button class="actions-btn" onclick="abrirExcluir(<?= $cliente['id'] ?>,
                                                 '<?= htmlspecialchars($cliente['nome']) ?>'
                                                 )">Excluir
                   </button>

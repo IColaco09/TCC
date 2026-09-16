@@ -80,6 +80,8 @@
                   }
                   echo htmlspecialchars($nomeCategoria);
                   ?>
+                </td>
+                <td>
                   <button onclick="verProduto()">
 
                   </button>

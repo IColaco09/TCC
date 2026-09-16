@@ -235,7 +235,6 @@ h2 {
 .modal-buttons button[type="button"]:hover {
   border-color: var(--cyan);
   color: var(--cyan);
-  cursor: pointer;
 }
 /* ── Content ── */
 .content {
@@ -360,7 +359,7 @@ h2 {
   grid-template-columns: 2fr 2fr 2fr 2fr 2fr 1fr;
 }
 .tabela-7 tr {
-  grid-template-columns: 1.5fr 1.5fr 1.5fr 1.5fr 1.5fr 1.5fr 1fr;
+  grid-template-columns: 0.6fr 1.4fr 2.2fr 1fr 1.4fr 1fr 1.6fr;
 }
 
 .tabela th {
@@ -389,8 +388,6 @@ h2 {
 
 .actions-btn:hover {
   color: var(--cyan);
-  transition: 0.3s;
-  cursor: pointer;
 }
 .tabela thead tr th {
   color: var(--text);
@@ -596,6 +593,5 @@ h2 {
 .item-row button:hover {
   border-color: var(--red);
   color: var(--red);
-  cursor: pointer;
 }
 
