@@ -21,9 +21,18 @@
         }
 
         public function cadastrar($nome, $email, $senha, $tipo_usuario){
-            $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-            $stmt = $this->conn->prepare("INSERT INTO usuarios (nome, email, senha, tipo_usuario) VALUES (?, ?, ?, ?)");
-            return $stmt->execute([$nome, $email, $senhaHash, $tipo_usuario]);
+            try{
+                $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+                $stmt = $this->conn->prepare("INSERT INTO usuarios (nome, email, senha, tipo_usuario) VALUES (?, ?, ?, ?)");
+                $stmt->execute([$nome, $email, $senhaHash, $tipo_usuario]);
+                return ['sucesso' => true];
+            } catch (PDOException $e) {
+                if ($e->errorInfo[1] == 1062) {
+                    return ['sucesso' => false, 'erro' => 'duplicado'];
+                }
+                throw $e;
+            }
+            
         }
 
         public function editar($id, $nome, $email, $senha, $ativo, $tipo_usuario){

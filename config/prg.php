@@ -14,4 +14,3 @@ function redirecionarPRG($url) {
     header("Location: $url");
     exit;
 }
- 

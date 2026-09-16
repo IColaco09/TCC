@@ -23,8 +23,16 @@
 
 
         public function cadastrarProduto($nome, $codigo, $preco, $descricao, $estoque, $tipo){
+            try{
             $stmt = $this->conn->prepare("INSERT INTO produtos (nome, codigo, preco, descricao, estoque, categoria_id) VALUES (?, ?, ?, ?, ?, ?)");
-            return $stmt->execute([$nome, $codigo, $preco, $descricao, $estoque, $tipo]);
+            $stmt->execute([$nome, $codigo, $preco, $descricao, $estoque, $tipo]);
+            return ['sucesso' => true];
+            } catch (PDOException $e) {
+                if ($e->errorInfo[1] == 1062) {
+                    return ['sucesso' => false, 'erro' => 'duplicado'];
+                }
+                throw $e;
+            }
         }
 
         public function listarTipos(){
