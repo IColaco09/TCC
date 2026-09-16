@@ -394,6 +394,10 @@ h2 {
 }
 
 /* ── Mensagens de sucesso/erro ── */
+.mensagem { padding: 12px; margin-bottom: 16px; border-radius: 4px; }
+.mensagem-sucesso { background: #d4edda; color: #155724; }
+.mensagem-erro { background: #f8d7da; color: #721c24; }
+
 .msg-sucesso,
 .msg-erro {
   padding: 12px 16px;

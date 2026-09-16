@@ -36,8 +36,12 @@
             $senha = $_POST['senha'];
             $tipo = intval($_POST['tipo_usuario']);
  
-            if ($this->model->cadastrar($nome, $email, $senha, $tipo)) {
+            $resultado = $this->model->cadastrar($nome, $email, $senha, $tipo);
+ 
+            if ($resultado['sucesso']) {
                 definirMensagem('sucesso', "Usuário cadastrado com sucesso!");
+            } elseif ($resultado['erro'] === 'duplicado') {
+                definirMensagem('erro', "Já existe um usuário com esse email.");
             } else {
                 definirMensagem('erro', "Erro ao cadastrar usuário.");
             }

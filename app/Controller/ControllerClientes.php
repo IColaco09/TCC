@@ -43,8 +43,12 @@ class ControllerClientes
             $estado = trim($_POST['estado']);
             $cep = trim($_POST['cep']);
 
-            if ($this->model->cadastrar($nome, $cpf_cnpj, $telefone, $email, $endereco, $cidade, $estado, $cep)) {
+            $resultado = $this->model->cadastrar($nome, $cpf_cnpj, $telefone, $email, $endereco, $cidade, $estado, $cep);
+
+            if ($resultado['sucesso']){
                 definirMensagem('sucesso', "Cliente cadastrado com sucesso!");
+            } elseif ($resultado['erro'] === 'duplicado') {
+                definirMensagem('erro', "Já existe um cliente com esse CPF/CNPJ.");
             } else {
                 definirMensagem('erro', "Erro ao cadastrar cliente.");
             }
