@@ -27,8 +27,16 @@
 
         // Insere novo cliente no Banco
         public function cadastrar($nome, $cpf_cnpj, $telefone, $email, $endereco, $cidade, $estado, $cep) {
-            $stmt = $this->conn->prepare("INSERT INTO clientes (nome, cpf_cnpj, telefone, email, endereco, cidade, estado, cep) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            return $stmt->execute([$nome, $cpf_cnpj, $telefone, $email, $endereco, $cidade, $estado, $cep]);
+            try{$stmt = $this->conn->prepare("INSERT INTO clientes (nome, cpf_cnpj, telefone, email, endereco, cidade, estado, cep) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->execute([$nome, $cpf_cnpj, $telefone, $email, $endereco, $cidade, $estado, $cep]);
+            return ['sucesso' => true];
+            } catch (PDOException $e) {
+                if ($e->errorInfo[1] == 1062) {
+                    return ['sucesso' => false, 'erro' => 'duplicado'];
+                }
+                throw $e;
+            }
+            
         }
 
         // Atualiza os dados de um cliente existente

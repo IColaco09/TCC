@@ -36,6 +36,16 @@
         <h1>Gestão de Clientes</h1>
       </header>
 
+      <?php [$msgSucesso, $msgErro] = pegarMensagens(); ?>
+
+      <?php if ($msgSucesso): ?>
+          <div class="mensagem mensagem-sucesso"><?= htmlspecialchars($msgSucesso) ?></div>
+      <?php endif; ?>
+
+      <?php if ($msgErro): ?>
+          <div class="mensagem mensagem-erro"><?= htmlspecialchars($msgErro) ?></div>
+      <?php endif; ?>
+
       <section class="search-header">
         <input type="text" placeholder="Buscar cliente..." class="search">
 

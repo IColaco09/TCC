@@ -35,8 +35,12 @@
                 $tipo = intval($_POST['tipo_produto']);
                 $descricao = trim($_POST['descricao']);
 
-                if($this->model->cadastrarProduto($nome, $codigo, $preco, $descricao, $estoque, $tipo)) {
+                $resultado = $this->model->cadastrarProduto($nome, $codigo, $preco, $descricao, $estoque, $tipo);
+
+                if ($resultado['sucesso']) {
                     definirMensagem('sucesso', "Produto cadastrado com sucesso!");
+                } elseif ($resultado['erro'] === 'duplicado') {
+                    definirMensagem('erro', "Já existe um produto com esse código.");
                 } else {
                     definirMensagem('erro', "Erro ao cadastrar produto.");
                 }
