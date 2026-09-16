@@ -5,11 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Clientes</title>
+  <link rel="icon" type="image/png" href="<?= BASE_URL ?>/public/Assets/img/logo.png?v=1">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<?= BASE_URL ?>/public/Assets/css/style.css">
   <script src="<?= BASE_URL ?>/public/Assets/js/rotas.js"></script>
   <script src="<?= BASE_URL ?>/public/Assets/js/modais.js"></script>
   <script src="<?= BASE_URL ?>/public/Assets/js/modalClientes.js"></script>
+  <script src="<?= BASE_URL ?>/public/Assets/js/modalVer.js" defer></script>
 </head>
 
 <body>
@@ -57,7 +59,7 @@
 
       <section class="tabela">
 
-        <table class="tabela-5">
+        <table class="tabela-com-ver tabela-5">
           <thead>
             <tr>
               <th>Nome</th>
@@ -75,7 +77,10 @@
                 <td><?= htmlspecialchars(($cliente['cpf_cnpj'])) ?></td> <!-- Exibe o CPF/CNPJ do cliente -->
                 <td><?= htmlspecialchars(($cliente['telefone'])) ?></td> <!-- Exibe o telefone do cliente -->
                 <td><?= htmlspecialchars(($cliente['email'])) ?></td> <!-- Exibe o email do cliente -->
-                <td><button class="actions-btn" onclick="abrirEditar(<?= $cliente['id'] ?>,
+                <td>
+                  <button type="button" class="actions-btn" onclick="abrirVer(this)" data-ver="cliente"
+                    data-registro="<?= htmlspecialchars(json_encode($cliente, JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE), ENT_QUOTES, 'UTF-8') ?>">Ver</button>
+                  <button class="actions-btn" onclick="abrirEditar(<?= $cliente['id'] ?>,
                                                 '<?= htmlspecialchars($cliente['nome']) ?>',
                                                 '<?= htmlspecialchars($cliente['cpf_cnpj']) ?>',
                                                 '<?= htmlspecialchars($cliente['telefone']) ?>',
@@ -86,8 +91,7 @@
                                                 '<?= htmlspecialchars($cliente['cep']) ?>'
                                                 )">Editar
                   </button>
-                </td>
-                <td><button class="actions-btn" onclick="abrirExcluir(<?= $cliente['id'] ?>,
+                <button class="actions-btn" onclick="abrirExcluir(<?= $cliente['id'] ?>,
                                                 '<?= htmlspecialchars($cliente['nome']) ?>'
                                                 )">Excluir
                   </button>
@@ -162,6 +166,21 @@
             </a>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal somente leitura para ver detalhes -->
+  <div class="modal-overlay" id="modalVer" onclick="if (event.target === this) fecharVer()" onkeydown="tecladoVer(event)">
+    <div class="modal modal-ver" role="dialog" aria-modal="true" aria-labelledby="verTitulo" tabindex="-1">
+      <h2 id="verTitulo">Detalhes</h2>
+      <dl id="verCampos" class="ver-campos"></dl>
+      <section id="verItens" hidden>
+        <h3>Itens do pedido</h3>
+        <dl id="verListaItens" class="ver-campos"></dl>
+      </section>
+      <div class="modal-buttons">
+        <button type="button" id="fecharVer" onclick="fecharVer()">Fechar</button>
       </div>
     </div>
   </div>

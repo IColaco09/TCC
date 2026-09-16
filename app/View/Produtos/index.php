@@ -5,12 +5,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Produtos</title>
+  <link rel="icon" type="image/png" href="<?= BASE_URL ?>/public/Assets/img/logo.png?v=1">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<?= BASE_URL ?>/public/Assets/css/style.css">
   <script src="<?= BASE_URL ?>/public/Assets/js/modais.js" defer></script>
   <script src="<?= BASE_URL ?>/public/Assets/js/modalProdutos.js" defer></script>
   <script src="<?= BASE_URL ?>/public/Assets/js/rotas.js" defer></script>
 
+  <script src="<?= BASE_URL ?>/public/Assets/js/modalVer.js" defer></script>
 </head>
 
 <body>
@@ -58,7 +60,7 @@
       </section>
 
       <section class="tabela">
-        <table class="tabela-6">
+        <table class="tabela-com-ver tabela-6">
           <thead>
             <tr>
               <th>Código</th>
@@ -92,11 +94,8 @@
                   ?>
                 </td>
                 <td>
-                  <button onclick="verProduto()">
-
-                  </button>
-                </td>
-                <td>
+                  <button type="button" class="actions-btn" onclick="abrirVer(this)" data-ver="produto"
+                    data-registro="<?= htmlspecialchars(json_encode(array_merge($produto, ['tipo_nome' => $nomeCategoria]), JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE), ENT_QUOTES, 'UTF-8') ?>">Ver</button>
                   <button class="actions-btn" onclick="abrirEditar(
                     <?= $produto['codigo'] ?>,
                     '<?= $produto['nome'] ?>',
@@ -208,6 +207,20 @@
             </a>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+  <!-- Modal somente leitura para ver detalhes -->
+  <div class="modal-overlay" id="modalVer" onclick="if (event.target === this) fecharVer()" onkeydown="tecladoVer(event)">
+    <div class="modal modal-ver" role="dialog" aria-modal="true" aria-labelledby="verTitulo" tabindex="-1">
+      <h2 id="verTitulo">Detalhes</h2>
+      <dl id="verCampos" class="ver-campos"></dl>
+      <section id="verItens" hidden>
+        <h3>Itens do pedido</h3>
+        <dl id="verListaItens" class="ver-campos"></dl>
+      </section>
+      <div class="modal-buttons">
+        <button type="button" id="fecharVer" onclick="fecharVer()">Fechar</button>
       </div>
     </div>
   </div>

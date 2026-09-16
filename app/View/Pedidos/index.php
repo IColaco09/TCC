@@ -5,11 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pedidos</title>
+  <link rel="icon" type="image/png" href="<?= BASE_URL ?>/public/Assets/img/logo.png?v=1">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<?= BASE_URL ?>/public/Assets/css/style.css">
   <script src="<?= BASE_URL ?>/public/Assets/js/rotas.js"></script>
   <script src="<?= BASE_URL ?>/public/Assets/js/modais.js"></script>
   <script src="<?= BASE_URL ?>/public/Assets/js/modalPedidos.js"></script>
+  <script src="<?= BASE_URL ?>/public/Assets/js/modalVer.js" defer></script>
 </head>
 
 <body>
@@ -53,7 +55,7 @@
       </section>
 
       <section class="tabela">
-        <table class="tabela-7">
+        <table class="tabela-com-ver tabela-7">
           <thead>
             <tr>
               <th>Pedido</th>
@@ -79,11 +81,11 @@
                   </span>
                 </td>
                 <td>
+                  <button type="button" class="actions-btn" onclick="abrirVer(this)" data-ver="pedido"
+                    data-registro="<?= htmlspecialchars(json_encode($pedido, JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE), ENT_QUOTES, 'UTF-8') ?>">Ver</button>
                   <?php if (!in_array($pedido['status'], ['concluido', 'cancelado'])): ?>
                     <button class="actions-btn" onclick="abrirConcluir(<?= (int)$pedido['id'] ?>, '<?= htmlspecialchars($pedido['cliente_nome']) ?>')">Concluir</button>
                     <button class="actions-btn" onclick="abrirCancelar(<?= (int)$pedido['id'] ?>, '<?= htmlspecialchars($pedido['cliente_nome']) ?>')">Cancelar</button>
-                  <?php else: ?>
-                    —
                   <?php endif; ?>
                 </td>
               </tr>
@@ -168,6 +170,20 @@
     </div>
   </div>
 
+  <!-- Modal somente leitura para ver detalhes -->
+  <div class="modal-overlay" id="modalVer" onclick="if (event.target === this) fecharVer()" onkeydown="tecladoVer(event)">
+    <div class="modal modal-ver" role="dialog" aria-modal="true" aria-labelledby="verTitulo" tabindex="-1">
+      <h2 id="verTitulo">Detalhes</h2>
+      <dl id="verCampos" class="ver-campos"></dl>
+      <section id="verItens" hidden>
+        <h3>Itens do pedido</h3>
+        <dl id="verListaItens" class="ver-campos"></dl>
+      </section>
+      <div class="modal-buttons">
+        <button type="button" id="fecharVer" onclick="fecharVer()">Fechar</button>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>
