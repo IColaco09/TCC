@@ -1,5 +1,7 @@
 <?php
     require_once __DIR__ . '/../Model/ModelUsuarios.php';
+    require_once __DIR__ . '/../../config/Auth.php';
+    require_once __DIR__ . '/../../config/prg.php';
 
     class ControllerUsuarios {
         private $model;
@@ -9,15 +11,17 @@
             session_start(['cookie_httponly' => true, 'use_only_cookies' => true]);
         }
         if (!isset($_SESSION['id'])) {
-            header("Location: /TCC/public/index.php?url=login");
+            header("Location: ?url=login");
             exit;
         }
         if ($_SESSION['tipo'] != 1) {
 
-        header("Location: /TCC/public/index.php?url=home");
+        header("Location: ?url=home");
             exit;
         } 
 
+        permitirEntrada([PERFIL_ADMIN, PERFIL_GERENTE, PERFIL_USER]);
+        
         $this->model = new ModelUsuarios();
         }
 
@@ -33,10 +37,12 @@
             $tipo = intval($_POST['tipo_usuario']);
  
             if ($this->model->cadastrar($nome, $email, $senha, $tipo)) {
-                $sucesso = "Usuário cadastrado com sucesso!";
+                definirMensagem('sucesso', "Usuário cadastrado com sucesso!");
             } else {
-                $erro = "Erro ao cadastrar usuário.";
+                definirMensagem('erro', "Erro ao cadastrar usuário.");
             }
+
+            redirecionarPRG('?url=usuarios');
         }
  
         // EDITAR
@@ -49,22 +55,23 @@
             $senha = $_POST['senha'] ?? '';
  
             if ($this->model->editar($id, $nome, $email, $senha, $ativo, $tipo)) {
-                $sucesso = "Usuário atualizado com sucesso!";
+                definirMensagem('sucesso', "Usuário atualizado com sucesso!");
             } else {
-                $erro = "Erro ao atualizar usuário.";
+                definirMensagem('erro', "Erro ao atualizar usuário.");
             }
+            redirecionarPRG('?url=usuarios');
         }
  
         // EXCLUIR
         if (isset($_GET['excluir'])) {
             $id = intval($_GET['excluir']);
             if ($id === $_SESSION['id']) {
-                $erro = "Você não pode excluir seu próprio usuário.";
+                definirMensagem('erro', "Você não pode excluir seu próprio usuário.");
             } else {
                 $this->model->excluir($id);
-                header("Location: /TCC/public/index.php?url=usuarios");
-                exit;
             }
+
+            redirecionarPRG('?url=usuarios');
         }
  
         // BUSCAR PARA EDITAR

@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Produtos</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/TCC/public/Assets/css/style.css">
-  <script src="/TCC/public/Assets/js/modais.js" defer></script>
-  <script src="/TCC/public/Assets/js/modalProdutos.js" defer></script>
-  <script src="/TCC/public/Assets/js/rotas.js" defer></script>
+  <link rel="stylesheet" href="<?= BASE_URL ?>/public/Assets/css/style.css">
+  <script src="<?= BASE_URL ?>/public/Assets/js/modais.js" defer></script>
+  <script src="<?= BASE_URL ?>/public/Assets/js/modalProdutos.js" defer></script>
+  <script src="<?= BASE_URL ?>/public/Assets/js/rotas.js" defer></script>
 
 </head>
 
@@ -24,7 +24,6 @@
         <button onclick="rotaHome()">Início</button>
         <button onclick="rotaProdutos()" class="active">Produtos</button>
         <button onclick="rotaClientes()">Clientes</button>
-        <button onclick="rotaVendas()">Vendas</button>
         <button onclick="rotaPedidos()">Pedidos</button>
         <button onclick="rotaUsuarios()">Usuários</button>
       </nav>
@@ -81,8 +80,6 @@
                   }
                   echo htmlspecialchars($nomeCategoria);
                   ?>
-                </td>
-                <td>
                   <button onclick="verProduto()">
 
                   </button>
@@ -90,9 +87,10 @@
                 <td>
                   <button class="actions-btn" onclick="abrirEditar(
                     <?= $produto['codigo'] ?>,
-                    <?= $produto['nome'] ?>,
+                    '<?= $produto['nome'] ?>',
                     <?= $produto['preco'] ?>,
                     <?= $produto['estoque'] ?>,
+                    '<?= $produto['descricao'] ?>',
                     <?= $produto['categoria_id'] ?>
                     )">Editar
                   </button>
@@ -118,7 +116,7 @@
   <div class="modal-overlay" id="modalCadTipo"><!-- Modal para cadastrar Tipo de Produto -->
     <div class="modal">
       <h2>Cadastrar Tipo De Produto</h2>
-      <form action="/TCC/public/index.php?url=produtos" method="POST">
+      <form action="<?= BASE_URL ?>/?url=produtos" method="POST">
         <input type="hidden" name="acao" value="cadastrarTipo">
 
         <input type="text" id="cadastrarNomeTipo" name="nomeTipo" placeholder="Tipo de Produto" required>
@@ -135,7 +133,7 @@
   <div class="modal-overlay" id="modalCadastrar"><!-- Modal para cadastrar produto -->
     <div class="modal">
       <h2>Cadastrar Produto</h2>
-      <form action="/TCC/public/index.php?url=produtos" method="POST">
+      <form action="<?= BASE_URL ?>/?url=produtos" method="POST">
         <input type="hidden" name="acao" value="cadastrar">
 
         <input type="text" id="cadastrarCodigo" name="codigo" placeholder="Código" required>
@@ -162,7 +160,7 @@
   <div class="modal-overlay" id="modalEditar"><!-- Modal para editar produto -->
     <div class="modal">
       <h2>Editar Produto</h2>
-      <form action="/TCC/public/index.php?url=produtos" method="POST">
+      <form action="<?= BASE_URL ?>/?url=produtos" method="POST">
         <input type="hidden" name="acao" value="editar">
         <input type="hidden" name="codigo" id="editarCodigo">
 
@@ -173,7 +171,7 @@
 
         <select name="tipo_produto" id="editarTipoProduto" required>
           <option value="">Selecione o tipo</option>
-          <?php foreach ($categorias as $cat => $value): ?>
+          <?php foreach ($categorias as $cat): ?>
             <option value="<?= $cat['id'] ?>"><?= htmlspecialchars($cat['nome']) ?></option>
           <?php endforeach ?>
         </select>
@@ -189,13 +187,14 @@
   <div class="modal-overlay" id="modalExcluir"><!-- Modal para confirmar exclusão -->
     <div class="modal">
       <h2>Confirmar Exclusão</h2>
-        <form action="/TCC/public/index.php?url=produtos">
+        <form action="<?= BASE_URL ?>/?url=produtos" method="POST">
           <p>Tem certeza de que deseja excluir este produto?</p>
           <div class="modal-buttons">
             <button type="button" onclick="fecharModal('modalExcluir')">Cancelar</button>
             <a id="Excluir" href="#">
               <button type="button">Excluir</button>
             </a>
+          </div>
         </form>
       </div>
     </div>

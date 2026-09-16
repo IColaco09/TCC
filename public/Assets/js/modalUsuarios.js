@@ -16,7 +16,7 @@ function abrirEditar(id, nome, email, tipo) {
 
 function abrirExcluir(id, nome) {
   document.getElementById('excluirLink').href = 
-    '/TCC/public/index.php?url=usuarios&excluir=' + id;
+    '/TCC/?url=usuarios&excluir=' + id;
   document.getElementById('excluirNome').textContent = nome;
 
   document.getElementById('modalExcluir').classList.add('ativo');

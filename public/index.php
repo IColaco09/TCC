@@ -4,6 +4,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+
 // pega a rota da URL
 $url = $_GET['url'] ?? 'login';
 
@@ -40,10 +41,11 @@ switch ($url) {
     case 'relatorios':
         require __DIR__ . '/../app/Controller/ControllerRelatorios.php';
         (new ControllerRelatorios())->relatorios();
+        break;
 
     case 'pedidos':
         require __DIR__ .'/../app/Controller/ControllerPedidos.php';
-        (new ControllerPedidos())->index();
+        (new ControllerPedidos())->pedidos();
         break;
 
     case 'produtos':
@@ -53,12 +55,7 @@ switch ($url) {
 
     case 'vendas':
         require __DIR__ .'/../app/Controller/ControllerVendas.php';
-        (new ControllerVendas())->index();
-        break;
-
-    case 'configuracoes':
-        require __DIR__ .'/../app/Controller/ControllerPedidos.php';
-        (new ControllerPedidos())->index();
+        (new ControllerVendas())->vendas();
         break;
 
     default:

@@ -1,5 +1,6 @@
 <?php
     require_once __DIR__ . '/../Model/ModelHome.php';
+    require_once __DIR__ . '/../../config/prg.php';
     require_once __DIR__ . '/../../config/Auth.php';
 
     class ControllerHome {
@@ -12,6 +13,9 @@
                 'use_only_cookies' => true
             ]);
         }
+
+        permitirEntrada([PERFIL_ADMIN, PERFIL_GERENTE, PERFIL_USER]);
+
         $this->model = new ModelHome();
         }
 
@@ -19,7 +23,7 @@
             // Verifica se o usuário está logado
 
             if (!isset($_SESSION['id'])) {
-                header("Location: /TCC/public/index.php?url=login");
+                header("Location:?url=login");
                 exit;
             }
 
