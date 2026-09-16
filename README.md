@@ -83,7 +83,7 @@ C:/xampp/htdocs/TCC
 
 **3. Crie o banco de dados**
 
-Acesse o phpMyAdmin (`http://localhost/phpmyadmin`) e crie um banco chamado `sistemacbs`, depois execute o SQL abaixo:
+Acesse o phpMyAdmin (`http://localhost/phpmyadmin`) e depois execute o SQL abaixo:
 
 ```sql
 CREATE DATABASE IF NOT EXISTS `tcc_provisorio` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -229,16 +229,18 @@ ALTER TABLE `produtos`
 -- Inserção perfil de admin
 -- --------------------------------------------------------
 INSERT INTO `usuarios` (`nome`, `email`, `senha`, `tipo_usuario`, `ativo`) VALUES
-('Admin', 'admin@tcc.local', '$2y$10$bIuceYW5HhQjgBXTLBLyaOCs0JmCMAiDlftZgnsHxKTqtaizQ559e', 1, 1);
+('Admin', 'admin@tcc.local', '$2y$10$enB2zdsapejBpK5xYvnzIupjXc4PZjeyjoWL9WYMTYYqfh5c9MhfK', 1, 1);
 -- Copie até aqui !!!
 
 Email: admin@tcc.local
-Senha em Hash: '$2y$10$bIuceYW5HhQjgBXTLBLyaOCs0JmCMAiDlftZgnsHxKTqtaizQ559e'
+Senha: 12345
+Senha em Hash: '$2y$10$enB2zdsapejBpK5xYvnzIupjXc4PZjeyjoWL9WYMTYYqfh5c9MhfK'
 --Em caso de mal funcionamento entrar em contato com Dev Responsavel
 
 
-**5. Acesse o sistema**
+
 ```
+**5. Acesse o sistema**
 http://localhost/TCC/?url=login
 ```
 
