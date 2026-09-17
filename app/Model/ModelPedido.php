@@ -17,6 +17,8 @@
                     c.nome AS cliente_nome,
                     p.status,
                     p.total,
+                    p.observacoes,
+                    p.usuario_id,
                     p.atualizado_em,
                     GROUP_CONCAT(CONCAT(pi.quantidade, 'x ', pr.nome) SEPARATOR ', ') AS itens_resumo
                 FROM pedidos p
@@ -26,7 +28,32 @@
                 GROUP BY p.id
                 ORDER BY p.atualizado_em DESC
             ");
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $pedidos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if (!$pedidos) {
+                return [];
+            }
+
+            // Uma consulta para os itens de todos os pedidos listados.
+            $ids = array_column($pedidos, 'id');
+            $marcadores = implode(',', array_fill(0, count($ids), '?'));
+            $stmtItens = $this->conn->prepare("
+                SELECT pi.pedido_id, pi.produto_id, pr.codigo, pr.nome,
+                       pi.quantidade, pi.preco_unit, pi.subtotal
+                FROM pedido_itens pi
+                LEFT JOIN produtos pr ON pr.id = pi.produto_id
+                WHERE pi.pedido_id IN ($marcadores)
+                ORDER BY pi.pedido_id, pi.produto_id
+            ");
+            $stmtItens->execute($ids);
+            $itensPorPedido = [];
+            foreach ($stmtItens->fetchAll(PDO::FETCH_ASSOC) as $item) {
+                $itensPorPedido[$item['pedido_id']][] = $item;
+            }
+            foreach ($pedidos as &$pedido) {
+                $pedido['itens'] = $itensPorPedido[$pedido['id']] ?? [];
+            }
+            unset($pedido);
+            return $pedidos;
         }
 
         public function buscarPorId($id) {
