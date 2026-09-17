@@ -349,17 +349,14 @@ h2 {
   border-bottom: 1px solid var(--border);
 }
 
-.tabela-4 tr {
-  grid-template-columns: 2fr 2fr 2fr 1fr;
-}
 .tabela-5 tr {
-  grid-template-columns: 2fr 2fr 2fr 2fr 1fr;
+  grid-template-columns: repeat(4, minmax(0, 2fr)) 190px; 
 }
 .tabela-6 tr {
-  grid-template-columns: 2fr 2fr 2fr 2fr 2fr 1fr;
+  grid-template-columns: repeat(5, minmax(0, 2fr)) 190px; 
 }
 .tabela-7 tr {
-  grid-template-columns: 0.6fr 1.4fr 2.2fr 1fr 1.4fr 1fr 1.6fr;
+  grid-template-columns: repeat(6, minmax(0, 1.5fr)) 215px; 
 }
 
 .tabela th {
@@ -375,6 +372,10 @@ h2 {
   align-items: center;
 }
 
+.tabela td:last-child {
+  gap: 12px; 
+}
+
 .tabela thead tr th {
   color: var(--text);
 }
@@ -388,6 +389,7 @@ h2 {
 
 .actions-btn:hover {
   color: var(--cyan);
+  cursor: pointer;
 }
 .tabela thead tr th {
   color: var(--text);
@@ -599,3 +601,39 @@ h2 {
   color: var(--red);
 }
 
+.modal-ver {
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+}
+.ver-campos {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+.ver-campos dt {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+.ver-campos dd {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+#verListaItens { margin-top: 12px; }
+#verListaItens > div:nth-child(5n + 1) {
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.modal-ver h3 { color: var(--cyan); font-size: 16px; }
+
+/* Logo da tela de login */
+.login-logo {
+  width: 200px;
+}
