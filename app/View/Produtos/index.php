@@ -49,11 +49,18 @@
           <div class="mensagem mensagem-erro"><?= htmlspecialchars($msgErro) ?></div>
       <?php endif; ?>
 
+      <form id="formBusca" method="GET" action="<?= BASE_URL ?>/">
+        <input type="hidden" name="url" value="produtos">
+      </form>
+
       <section class="search-header">
-        <input type="text" placeholder="Buscar produto..." class="search">
+        <input type="text" name="busca" form="formBusca" value="<?= htmlspecialchars($busca) ?>" placeholder="Buscar produto..." class="search">
 
         <div class="buttons">
-          <button class="btn">Buscar</button>
+          <button type="submit" form="formBusca" class="btn">Buscar</button>
+          <?php if ($busca !== ''): ?>
+            <a href="<?= BASE_URL ?>/produtos" class="btn">Limpar</a>
+          <?php endif; ?>
           <button class="btn" onclick="abrirCadTipo()">+ Novo Tipo</button>
           <button class="btn" onclick="abrirCadastrar()">+ Novo Produto</button>
         </div>
@@ -96,20 +103,10 @@
                 <td>
                   <button type="button" class="actions-btn" onclick="abrirVer(this)" data-ver="produto"
                     data-registro="<?= htmlspecialchars(json_encode(array_merge($produto, ['tipo_nome' => $nomeCategoria]), JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE), ENT_QUOTES, 'UTF-8') ?>">Ver</button>
-                  <button class="actions-btn" onclick="abrirEditar(
-                    <?= $produto['codigo'] ?>,
-                    '<?= $produto['nome'] ?>',
-                    <?= $produto['preco'] ?>,
-                    <?= $produto['estoque'] ?>,
-                    '<?= $produto['descricao'] ?>',
-                    <?= $produto['categoria_id'] ?>
-                    )">Editar
+                  <button class="actions-btn" onclick="abrirEditar(<?= jsArgs($produto['codigo'], $produto['nome'], $produto['preco'], $produto['estoque'], $produto['descricao'], $produto['categoria_id']) ?>)">Editar
                   </button>
 
-                  <button class="actions-btn" onclick="abrirExcluir(
-                  '<?= htmlspecialchars(($produto['codigo'])) ?>',
-                  '<?= htmlspecialchars(($produto['nome'])) ?>'
-                  )">Excluir
+                  <button class="actions-btn" onclick="abrirExcluir(<?= jsArgs($produto['codigo'], $produto['nome']) ?>)">Excluir
                   </button>
                 </td>
               </tr>
@@ -127,7 +124,8 @@
   <div class="modal-overlay" id="modalCadTipo"><!-- Modal para cadastrar Tipo de Produto -->
     <div class="modal">
       <h2>Cadastrar Tipo De Produto</h2>
-      <form action="<?= BASE_URL ?>/?url=produtos" method="POST">
+      <form action="<?= BASE_URL ?>/produtos" method="POST">
+        <input type="hidden" name="csrf" value="<?= csrfToken() ?>">
         <input type="hidden" name="acao" value="cadastrarTipo">
 
         <input type="text" id="cadastrarNomeTipo" name="nomeTipo" placeholder="Tipo de Produto" required>
@@ -144,7 +142,8 @@
   <div class="modal-overlay" id="modalCadastrar"><!-- Modal para cadastrar produto -->
     <div class="modal">
       <h2>Cadastrar Produto</h2>
-      <form action="<?= BASE_URL ?>/?url=produtos" method="POST">
+      <form action="<?= BASE_URL ?>/produtos" method="POST">
+        <input type="hidden" name="csrf" value="<?= csrfToken() ?>">
         <input type="hidden" name="acao" value="cadastrar">
 
         <input type="text" id="cadastrarCodigo" name="codigo" placeholder="Código" required>
@@ -171,7 +170,8 @@
   <div class="modal-overlay" id="modalEditar"><!-- Modal para editar produto -->
     <div class="modal">
       <h2>Editar Produto</h2>
-      <form action="<?= BASE_URL ?>/?url=produtos" method="POST">
+      <form action="<?= BASE_URL ?>/produtos" method="POST">
+        <input type="hidden" name="csrf" value="<?= csrfToken() ?>">
         <input type="hidden" name="acao" value="editar">
         <input type="hidden" name="codigo" id="editarCodigo">
 
@@ -198,18 +198,19 @@
   <div class="modal-overlay" id="modalExcluir"><!-- Modal para confirmar exclusão -->
     <div class="modal">
       <h2>Confirmar Exclusão</h2>
-        <form action="<?= BASE_URL ?>/?url=produtos" method="POST">
-          <p>Tem certeza de que deseja excluir este produto?</p>
-          <div class="modal-buttons">
-            <button type="button" onclick="fecharModal('modalExcluir')">Cancelar</button>
-            <a id="Excluir" href="#">
-              <button type="button">Excluir</button>
-            </a>
-          </div>
-        </form>
-      </div>
+      <p>Tem certeza de que deseja excluir este produto?</p>
+      <form action="<?= BASE_URL ?>/produtos" method="POST">
+        <input type="hidden" name="csrf" value="<?= csrfToken() ?>">
+        <input type="hidden" name="acao" value="excluir">
+        <input type="hidden" name="codigo" id="excluirCodigo">
+        <div class="modal-buttons">
+          <button type="button" onclick="fecharModal('modalExcluir')">Cancelar</button>
+          <button type="submit">Excluir</button>
+        </div>
+      </form>
     </div>
   </div>
+
   <!-- Modal somente leitura para ver detalhes -->
   <div class="modal-overlay" id="modalVer" onclick="if (event.target === this) fecharVer()" onkeydown="tecladoVer(event)">
     <div class="modal modal-ver" role="dialog" aria-modal="true" aria-labelledby="verTitulo" tabindex="-1">

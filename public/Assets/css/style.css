@@ -319,6 +319,7 @@ h2 {
   color: black;
   font-weight: bold;
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.08);
+  text-decoration: none;
 }
 
 .btn:hover {
@@ -636,4 +637,17 @@ h2 {
 /* Logo da tela de login */
 .login-logo {
   width: 200px;
+}
+
+/* Página 404 */
+.erro-404 h1 {
+  font-size: 72px;
+  color: var(--cyan);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+a.submit-btn {
+  display: block;
+  text-decoration: none;
 }

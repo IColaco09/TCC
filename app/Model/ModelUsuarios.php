@@ -9,9 +9,11 @@
             global $conn;
             $this->conn = $conn;
         }
-        public function listar(){
-            $res = $this->conn->query("SELECT id, nome, email, tipo_usuario, ativo FROM usuarios ORDER BY nome");
-            return $res->fetchAll(PDO::FETCH_ASSOC);
+        public function listar($busca = ''){
+            $like = "%$busca%";
+            $stmt = $this->conn->prepare("SELECT id, nome, email, tipo_usuario, ativo FROM usuarios WHERE nome LIKE ? OR email LIKE ? ORDER BY nome");
+            $stmt->execute([$like, $like]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         public function buscarPorId($id){

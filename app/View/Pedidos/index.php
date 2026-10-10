@@ -45,11 +45,18 @@
         <p class="msg-erro"><?= htmlspecialchars($erro) ?></p>
       <?php endif; ?>
 
+      <form id="formBusca" method="GET" action="<?= BASE_URL ?>/">
+        <input type="hidden" name="url" value="pedidos">
+      </form>
+
       <section class="search-header">
-        <input type="text" placeholder="Buscar pedido..." class="search">
+        <input type="text" name="busca" form="formBusca" value="<?= htmlspecialchars($busca) ?>" placeholder="Buscar pedido..." class="search">
 
         <div class="buttons">
-          <button class="btn">Buscar</button>
+          <button type="submit" form="formBusca" class="btn">Buscar</button>
+          <?php if ($busca !== ''): ?>
+            <a href="<?= BASE_URL ?>/pedidos" class="btn">Limpar</a>
+          <?php endif; ?>
           <button class="btn" onclick="abrirCadastrar()">+ Novo Pedido</button>
         </div>
       </section>
@@ -84,8 +91,8 @@
                   <button type="button" class="actions-btn" onclick="abrirVer(this)" data-ver="pedido"
                     data-registro="<?= htmlspecialchars(json_encode($pedido, JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE), ENT_QUOTES, 'UTF-8') ?>">Ver</button>
                   <?php if (!in_array($pedido['status'], ['concluido', 'cancelado'])): ?>
-                    <button class="actions-btn" onclick="abrirConcluir(<?= (int)$pedido['id'] ?>, '<?= htmlspecialchars($pedido['cliente_nome']) ?>')">Concluir</button>
-                    <button class="actions-btn" onclick="abrirCancelar(<?= (int)$pedido['id'] ?>, '<?= htmlspecialchars($pedido['cliente_nome']) ?>')">Cancelar</button>
+                    <button class="actions-btn" onclick="abrirConcluir(<?= jsArgs((int)$pedido['id'], $pedido['cliente_nome']) ?>)">Concluir</button>
+                    <button class="actions-btn" onclick="abrirCancelar(<?= jsArgs((int)$pedido['id'], $pedido['cliente_nome']) ?>)">Cancelar</button>
                   <?php endif; ?>
                 </td>
               </tr>
@@ -103,7 +110,8 @@
     <div class="modal">
       <h2>Novo Pedido</h2>
 
-      <form action="<?= BASE_URL ?>/?url=pedidos" method="POST">
+      <form action="<?= BASE_URL ?>/pedidos" method="POST">
+        <input type="hidden" name="csrf" value="<?= csrfToken() ?>">
         <input type="hidden" name="acao" value="cadastrar">
 
         <select name="cliente_id" required>
@@ -153,7 +161,12 @@
       <p>Confirmar conclusão do pedido de <strong id="concluirPedidoNome"></strong>?</p>
       <div class="modal-buttons">
         <button type="button" onclick="fecharModal('modalConcluir')">Cancelar</button>
-        <a id="linkConcluir" href="#"><button type="button">Concluir</button></a>
+        <form action="<?= BASE_URL ?>/pedidos" method="POST">
+        <input type="hidden" name="csrf" value="<?= csrfToken() ?>">
+          <input type="hidden" name="acao" value="concluir">
+          <input type="hidden" name="id" id="concluirId">
+          <button type="submit">Concluir</button>
+        </form>
       </div>
     </div>
   </div>
@@ -165,7 +178,12 @@
       <p>Confirmar cancelamento do pedido de <strong id="cancelarPedidoNome"></strong>? O estoque dos itens será devolvido.</p>
       <div class="modal-buttons">
         <button type="button" onclick="fecharModal('modalCancelar')">Voltar</button>
-        <a id="linkCancelar" href="#"><button type="button">Cancelar Pedido</button></a>
+        <form action="<?= BASE_URL ?>/pedidos" method="POST">
+        <input type="hidden" name="csrf" value="<?= csrfToken() ?>">
+          <input type="hidden" name="acao" value="cancelar">
+          <input type="hidden" name="id" id="cancelarId">
+          <button type="submit">Cancelar Pedido</button>
+        </form>
       </div>
     </div>
   </div>

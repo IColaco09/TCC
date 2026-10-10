@@ -10,10 +10,11 @@
         $this->conn = $conn;
     }
 
-        public function listarProdutos(){
-            $sql = "SELECT * FROM produtos";
-            $res = $this->conn->query($sql);
-            return $res->fetchAll(PDO::FETCH_ASSOC);
+        public function listarProdutos($busca = ''){
+            $like = "%$busca%";
+            $stmt = $this->conn->prepare("SELECT * FROM produtos WHERE nome LIKE ? OR codigo LIKE ? OR descricao LIKE ?");
+            $stmt->execute([$like, $like, $like]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         public function cadastrarTipo($nome, $desc){

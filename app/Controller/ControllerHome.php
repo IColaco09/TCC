@@ -14,6 +14,11 @@
             ]);
         }
 
+        if (!isset($_SESSION['id'])) {
+            header("Location:login");
+            exit;
+        }
+
         permitirEntrada([PERFIL_ADMIN, PERFIL_GERENTE, PERFIL_USER]);
 
         $this->model = new ModelHome();
@@ -23,7 +28,7 @@
             // Verifica se o usuário está logado
 
             if (!isset($_SESSION['id'])) {
-                header("Location:?url=login");
+                header("Location:login");
                 exit;
             }
 
@@ -36,4 +41,4 @@
             include __DIR__ . '/../View/Home/index.php';
         }
     }
-?>  
+?>

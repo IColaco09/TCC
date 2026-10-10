@@ -48,11 +48,18 @@
           <div class="mensagem mensagem-erro"><?= htmlspecialchars($msgErro) ?></div>
       <?php endif; ?>
 
+      <form id="formBusca" method="GET" action="<?= BASE_URL ?>/">
+        <input type="hidden" name="url" value="clientes">
+      </form>
+
       <section class="search-header">
-        <input type="text" placeholder="Buscar cliente..." class="search">
+        <input type="text" name="busca" form="formBusca" value="<?= htmlspecialchars($busca) ?>" placeholder="Buscar cliente..." class="search">
 
         <div class="buttons">
-          <button class="btn">Buscar</button>
+          <button type="submit" form="formBusca" class="btn">Buscar</button>
+          <?php if ($busca !== ''): ?>
+            <a href="<?= BASE_URL ?>/clientes" class="btn">Limpar</a>
+          <?php endif; ?>
           <button class="btn" onclick="abrirCadastrar()">+ Novo Cliente</button>
         </div>
       </section>
@@ -80,20 +87,9 @@
                 <td>
                   <button type="button" class="actions-btn" onclick="abrirVer(this)" data-ver="cliente"
                     data-registro="<?= htmlspecialchars(json_encode($cliente, JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE), ENT_QUOTES, 'UTF-8') ?>">Ver</button>
-                  <button class="actions-btn" onclick="abrirEditar(<?= $cliente['id'] ?>,
-                                                '<?= htmlspecialchars($cliente['nome']) ?>',
-                                                '<?= htmlspecialchars($cliente['cpf_cnpj']) ?>',
-                                                '<?= htmlspecialchars($cliente['telefone']) ?>',
-                                                '<?= htmlspecialchars($cliente['email']) ?>',
-                                                '<?= htmlspecialchars($cliente['endereco']) ?>',
-                                                '<?= htmlspecialchars($cliente['cidade']) ?>',
-                                                '<?= htmlspecialchars($cliente['estado']) ?>',
-                                                '<?= htmlspecialchars($cliente['cep']) ?>'
-                                                )">Editar
+                  <button class="actions-btn" onclick="abrirEditar(<?= jsArgs($cliente['id'], $cliente['nome'], $cliente['cpf_cnpj'], $cliente['telefone'], $cliente['email'], $cliente['endereco'], $cliente['cidade'], $cliente['estado'], $cliente['cep']) ?>)">Editar
                   </button>
-                <button class="actions-btn" onclick="abrirExcluir(<?= $cliente['id'] ?>,
-                                                '<?= htmlspecialchars($cliente['nome']) ?>'
-                                                )">Excluir
+                <button class="actions-btn" onclick="abrirExcluir(<?= jsArgs($cliente['id'], $cliente['nome']) ?>)">Excluir
                   </button>
                 </td>
               </tr>
@@ -111,7 +107,8 @@
     <div class="modal">
       <h2>Cadastrar Cliente</h2>
 
-      <form action="<?= BASE_URL ?>/?url=clientes" method="POST">
+      <form action="<?= BASE_URL ?>/clientes" method="POST">
+        <input type="hidden" name="csrf" value="<?= csrfToken() ?>">
         <input type="hidden" name="acao" value="cadastrar">
 
         <input type="text" name="nome" id="cadastrarNome" placeholder="Nome" required>
@@ -134,7 +131,8 @@
     <div class="modal">
       <h2>Editar Cliente</h2>
   
-    <form action="<?= BASE_URL ?>/?url=clientes" method="POST">
+    <form action="<?= BASE_URL ?>/clientes" method="POST">
+        <input type="hidden" name="csrf" value="<?= csrfToken() ?>">
       <input type="hidden" name="acao" value="editar">
       <input type="hidden" name="id" id="editarId">
 
@@ -157,18 +155,19 @@
   <div class="modal-overlay" id="modalExcluir"><!-- Modal para confirmar exclusão -->
     <div class="modal">
       <h2>Confirmar Exclusão</h2>
-        <form action="<?= BASE_URL ?>/?url=clientes" method="POST">
-          <p>Tem certeza de que deseja excluir este cliente?</p>
-          <div class="modal-buttons">
-            <button type="button" onclick="fecharModal('modalExcluir')">Cancelar</button>
-            <a id="Excluir" href="#">
-              <button type="button">Excluir</button>
-            </a>
-          </div>
-        </form>
-      </div>
+      <p>Tem certeza de que deseja excluir este cliente?</p>
+      <form action="<?= BASE_URL ?>/clientes" method="POST">
+        <input type="hidden" name="csrf" value="<?= csrfToken() ?>">
+        <input type="hidden" name="acao" value="excluir">
+        <input type="hidden" name="id" id="excluirId">
+        <div class="modal-buttons">
+          <button type="button" onclick="fecharModal('modalExcluir')">Cancelar</button>
+          <button type="submit">Excluir</button>
+        </div>
+      </form>
     </div>
   </div>
+
 
   <!-- Modal somente leitura para ver detalhes -->
   <div class="modal-overlay" id="modalVer" onclick="if (event.target === this) fecharVer()" onkeydown="tecladoVer(event)">

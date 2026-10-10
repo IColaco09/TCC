@@ -33,7 +33,7 @@ class ControllerLogin{
                     session_regenerate_id(true);
                     $_SESSION['id'] = $user['id'];
                     $_SESSION['tipo'] = $user['tipo_usuario'];
-                    header("Location: ?url=home");
+                    header("Location:home");
                     exit;
                 } else {
                     $erro = "Usuário ou senha incorretos!";

@@ -17,7 +17,7 @@
             }
 
             if (!isset($_SESSION['id'])) {
-                header("Location: ?url=login");
+                header("Location: login");
                 exit;
             }
 
@@ -31,6 +31,11 @@
         public function pedidos() {
             $sucesso = '';
             $erro = '';
+
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && !csrfValido()) {
+                definirMensagem('erro', 'Requisição inválida. Tente novamente.');
+                redirecionarPRG('pedidos');
+            }
 
             // CADASTRAR — POST acao=cadastrar
             // Campos: cliente_id, observacoes (opcional), produto_id[], quantidade[], preco_unit[]
@@ -65,24 +70,24 @@
                     definirMensagem('erro', "Erro ao cadastrar pedido: " . $e->getMessage());
                 }
 
-                redirecionarPRG('?url=pedidos');
+                redirecionarPRG('pedidos');
             }
 
-            // CONCLUIR — GET ?url=pedidos&concluir=ID
-            if (isset($_GET['concluir'])) {
-                $id = intval($_GET['concluir']);
+            // CONCLUIR — POST acao=concluir
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['acao'] ?? '') === 'concluir') {
+                $id = intval($_POST['id'] ?? 0);
                 if ($this->model->concluirPedido($id)) {
                     definirMensagem('sucesso', "Pedido concluído com sucesso!");
                 } else {
                     definirMensagem('erro', "Erro ao concluir pedido.");
                 }
 
-                redirecionarPRG('?url=pedidos');
+                redirecionarPRG('pedidos');
             }
 
-            // CANCELAR — GET ?url=pedidos&cancelar=ID
-            if (isset($_GET['cancelar'])) {
-                $id = intval($_GET['cancelar']);
+            // CANCELAR — POST acao=cancelar
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['acao'] ?? '') === 'cancelar') {
+                $id = intval($_POST['id'] ?? 0);
                 try {
                     if ($this->model->cancelarPedido($id)) {
                         definirMensagem('sucesso', "Pedido cancelado com sucesso!");
@@ -93,10 +98,11 @@
                     definirMensagem('erro', "Erro ao cancelar pedido: " . $e->getMessage());
                 }
 
-                redirecionarPRG('?url=pedidos');
+                redirecionarPRG('pedidos');
             }
 
-            $pedidos  = $this->model->buscarTodos();
+            $busca    = trim($_GET['busca'] ?? '');
+            $pedidos  = $this->model->buscarTodos($busca);
             $clientes = $this->modelClientes->buscarTodos();
             $produtos = $this->modelProdutos->listarProdutos();
 

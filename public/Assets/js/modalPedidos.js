@@ -24,12 +24,12 @@ function adicionarItem() {
 
 function abrirConcluir(id, cliente) {
   document.getElementById('concluirPedidoNome').textContent = cliente;
-  document.getElementById('linkConcluir').href = '/TCC/?url=pedidos&concluir=' + id;
+  document.getElementById('concluirId').value = id;
   document.getElementById('modalConcluir').classList.add('ativo');
 }
 
 function abrirCancelar(id, cliente) {
   document.getElementById('cancelarPedidoNome').textContent = cliente;
-  document.getElementById('linkCancelar').href = '/TCC/?url=pedidos&cancelar=' + id;
+  document.getElementById('cancelarId').value = id;
   document.getElementById('modalCancelar').classList.add('ativo');
 }

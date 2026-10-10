@@ -1,33 +1,33 @@
 function rotaHome(){
-    window.location ='?url=home';
+    window.location ='home';
 }
 
 function rotaProdutos(){
-    window.location ='?url=produtos';
+    window.location ='produtos';
 }
 
 function rotaClientes(){
-    window.location ='?url=clientes';
+    window.location ='clientes';
 }
 
 function rotaVendas(){
-    window.location ='?url=vendas';
+    window.location ='vendas';
 }
 
 function rotaPedidos(){
-    window.location ='?url=pedidos';
+    window.location ='pedidos';
 }
 
 function rotaUsuarios(){
-    window.location ='?url=usuarios';
+    window.location ='usuarios';
 }
 
 function rotaRelatorios(){
-    window.location ='?url=relatorios';
+    window.location ='relatorios';
 }
 
 function rotaSair(){
-    window.location ='?url=login';
+    window.location ='sair';
 }
 
 function rotaVoltar(){
