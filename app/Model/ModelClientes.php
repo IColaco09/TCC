@@ -12,10 +12,12 @@
             $this->conn = $conn;
         }
         
-        // Busca todos os clientes
-        public function buscarTodos() {
-            $res = $this->conn->query("SELECT id, nome, cpf_cnpj, telefone, email, endereco, cidade, estado, cep FROM clientes ORDER BY nome");
-            return $res->fetchAll(PDO::FETCH_ASSOC);
+        // Busca todos os clientes (filtra por nome, CPF/CNPJ, telefone ou email)
+        public function buscarTodos($busca = '') {
+            $like = "%$busca%";
+            $stmt = $this->conn->prepare("SELECT id, nome, cpf_cnpj, telefone, email, endereco, cidade, estado, cep FROM clientes WHERE nome LIKE ? OR cpf_cnpj LIKE ? OR telefone LIKE ? OR email LIKE ? ORDER BY nome");
+            $stmt->execute([$like, $like, $like, $like]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         // Busca cliente pelo ID

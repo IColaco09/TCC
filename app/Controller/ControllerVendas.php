@@ -14,7 +14,7 @@ require_once __DIR__ . '/../Model/ModelProdutos.php';
             }
 
             if (!isset($_SESSION['id'])) {
-                header("Location: ?url=login");
+                header("Location: login");
                 exit;
             }
 

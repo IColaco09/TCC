@@ -17,7 +17,9 @@ try {
 
 } catch (PDOException $e) {
 
-    die("Falha na conexão: " . $e->getMessage());
+    error_log("Falha na conexão: " . $e->getMessage());
+    http_response_code(500);
+    die("Erro interno. Tente novamente mais tarde.");
 
 }
 

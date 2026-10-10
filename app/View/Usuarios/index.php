@@ -55,11 +55,18 @@ $perfis = [
           <div class="mensagem mensagem-erro"><?= htmlspecialchars($msgErro) ?></div>
       <?php endif; ?>
 
+      <form id="formBusca" method="GET" action="<?= BASE_URL ?>/">
+        <input type="hidden" name="url" value="usuarios">
+      </form>
+
       <section class="search-header">
-        <input type="text" placeholder="Buscar usuário..." class="search">
+        <input type="text" name="busca" form="formBusca" value="<?= htmlspecialchars($busca) ?>" placeholder="Buscar usuário..." class="search">
 
         <div class="buttons">
-          <button class="btn">Buscar</button>
+          <button type="submit" form="formBusca" class="btn">Buscar</button>
+          <?php if ($busca !== ''): ?>
+            <a href="<?= BASE_URL ?>/usuarios" class="btn">Limpar</a>
+          <?php endif; ?>
           <button class="btn" onclick="abrirCadastrar()">+ Novo Usuário</button>
         </div>
       </section>
@@ -84,18 +91,10 @@ $perfis = [
                 <td><?= htmlspecialchars(($usuario['email'])) ?></td> <!-- Exibe o email do usuário -->
                 <td><?= $perfis[$usuario['tipo_usuario']] ?? 'Perfil não encontrado' ?></td> <!-- Exibe o perfil do usuário usando o array de perfis -->
                 <td><?= $usuario['ativo'] ? 'Ativo' : 'Inativo' ?></td> <!-- Exibe o status do usuário -->
-                <td><button class="actions-btn" onclick="abrirEditar(<?= $usuario['id'] ?>,
-                                                '<?= htmlspecialchars($usuario['nome']) ?>',
-                                                '<?= htmlspecialchars($usuario['email']) ?>',
-                                                <?= $usuario['tipo_usuario'] ?>,
-                                                <?= $usuario['ativo'] ?> 
-                                                )">Editar
+                <td><button class="actions-btn" onclick="abrirEditar(<?= jsArgs($usuario['id'], $usuario['nome'], $usuario['email'], $usuario['tipo_usuario'], $usuario['ativo']) ?>)">Editar
                   </button>
 
-                  <button class="actions-btn" onclick="abrirExcluir(
-                    <?= $usuario['id'] ?>,
-                    '<?= htmlspecialchars($usuario['nome']) ?>'
-                  )">Excluir
+                  <button class="actions-btn" onclick="abrirExcluir(<?= jsArgs($usuario['id'], $usuario['nome']) ?>)">Excluir
                   </button>
                 </td>
               </tr>
@@ -113,7 +112,8 @@ $perfis = [
   <div class="modal-overlay" id="modalCadastrar"><!-- Modal para cadastrar usuário -->
     <div class="modal">
       <h2>Cadastrar Usuário</h2>
-      <form method="POST" action="<?= BASE_URL ?>/?url=usuarios">
+      <form method="POST" action="<?= BASE_URL ?>
+        <input type="hidden" name="csrf" value="<?= csrfToken() ?>">/usuarios">
         <input type="hidden" name="acao" value="cadastrar">
 
         <input type="text" name="nome" id="cadastrarNome" placeholder="Nome" required>
@@ -139,7 +139,8 @@ $perfis = [
   <div class="modal-overlay" id="modalEditar"><!-- Modal para editar usuário -->
     <div class="modal">
       <h2>Editar Usuário</h2>
-      <form method="POST" action="<?= BASE_URL ?>/?url=usuarios">
+      <form method="POST" action="<?= BASE_URL ?>
+        <input type="hidden" name="csrf" value="<?= csrfToken() ?>">/usuarios">
         <input type="hidden" name="acao" value="editar">
         <input type="hidden" name="id" id="editarId">
 
@@ -173,9 +174,12 @@ $perfis = [
 
       <div class="modal-buttons">
         <button type="button" onclick="fecharModal('modalExcluir')">Cancelar</button>
-        <a id="excluirLink" href="#">
-          <button type="button">Excluir</button>
-        </a>
+        <form method="POST" action="<?= BASE_URL ?>
+        <input type="hidden" name="csrf" value="<?= csrfToken() ?>">/usuarios">
+          <input type="hidden" name="acao" value="excluir">
+          <input type="hidden" name="id" id="excluirId">
+          <button type="submit">Excluir</button>
+        </form>
       </div>
     </div>
   </div>

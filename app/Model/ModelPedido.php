@@ -1,4 +1,4 @@
-    <?php
+<?php
     require_once __DIR__ . '/../../config/modelbase/conexao.php';
 
     class ModelPedidos {
@@ -10,8 +10,9 @@
             $this->conn = $conn;
         }
 
-        public function buscarTodos() {
-            $stmt = $this->conn->query("
+        public function buscarTodos($busca = '') {
+            $like = "%$busca%";
+            $stmt = $this->conn->prepare("
                 SELECT
                     p.id,
                     c.nome AS cliente_nome,
@@ -25,9 +26,16 @@
                 JOIN clientes c ON c.id = p.cliente_id
                 LEFT JOIN pedido_itens pi ON pi.pedido_id = p.id
                 LEFT JOIN produtos pr ON pr.id = pi.produto_id
+                WHERE c.nome LIKE ? OR p.id LIKE ? OR p.status LIKE ?
+                   OR EXISTS (
+                        SELECT 1 FROM pedido_itens x
+                        JOIN produtos y ON y.id = x.produto_id
+                        WHERE x.pedido_id = p.id AND y.nome LIKE ?
+                   )
                 GROUP BY p.id
                 ORDER BY p.atualizado_em DESC
             ");
+            $stmt->execute([$like, $like, $like, $like]);
             $pedidos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if (!$pedidos) {
                 return [];

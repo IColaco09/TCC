@@ -11,7 +11,7 @@ function abrirCadastrar() {
   document.getElementById('modalCadastrar').classList.add('ativo');
 }
 
-function abrirEditar(id, nome, email, cpf, telefone, endereco, cidade, estado, cep) {
+function abrirEditar(id, nome, cpf, telefone, email, endereco, cidade, estado, cep) {
   document.getElementById('editarId').value = id;
   document.getElementById('editarNome').value = nome;
   document.getElementById('editarCpf_cnpj').value = cpf;
@@ -26,8 +26,7 @@ function abrirEditar(id, nome, email, cpf, telefone, endereco, cidade, estado, c
 }
 
 function abrirExcluir(id) {
-  document.getElementById('Excluir').href = 
-    '/TCC/?url=clientes&excluir=' + id;
+  document.getElementById('excluirId').value = id;
 
   document.getElementById('modalExcluir').classList.add('ativo');
 }

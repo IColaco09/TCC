@@ -241,7 +241,7 @@ Senha em Hash: '$2y$10$enB2zdsapejBpK5xYvnzIupjXc4PZjeyjoWL9WYMTYYqfh5c9MhfK'
 
 ```
 **5. Acesse o sistema**
-http://localhost/TCC/?url=login
+http://localhost/TCC/login
 ```
 
 ---

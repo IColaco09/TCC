@@ -16,7 +16,7 @@ class ControllerClientes
         }
 
         if (!isset($_SESSION['id'])) {
-            header("Location: ?url=login");
+            header("Location: login");
             exit;
         }
 
@@ -31,6 +31,12 @@ class ControllerClientes
 
         $sucesso = '';
         $erro = '';
+
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && !csrfValido()) {
+                definirMensagem('erro', 'Requisição inválida. Tente novamente.');
+                redirecionarPRG('clientes');
+            }
+
 
         //Cadastro de cliente
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['acao'] ?? '') === 'cadastrar') {
@@ -53,7 +59,7 @@ class ControllerClientes
                 definirMensagem('erro', "Erro ao cadastrar cliente.");
             }
 
-            redirecionarPRG('?url=clientes');
+            redirecionarPRG('clientes');
         }
 
 
@@ -73,18 +79,21 @@ class ControllerClientes
             } else {
                 definirMensagem('erro', "Erro ao atualizar cliente.");
             }
-            redirecionarPRG('?url=clientes');
+            redirecionarPRG('clientes');
         }
 
 
-        if (isset($_GET['excluir'])) {
-            $id = intval($_GET['excluir']);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['acao'] ?? '') === 'excluir') {
+            $id = intval($_POST['id'] ?? 0);
 
-            $this->model->excluir($id);
+            try {
+                $this->model->excluir($id);
+                definirMensagem('sucesso', "Cliente excluído com sucesso!");
+            } catch (PDOException $e) {
+                definirMensagem('erro', "Não foi possível excluir: o cliente possui pedidos.");
+            }
 
-            header("Location: ?url=clientes");
-
-            exit;
+            redirecionarPRG('clientes');
         }
 
         $cliente_editar = null;
@@ -92,7 +101,8 @@ class ControllerClientes
             $cliente_editar = $this->model->buscarPorId(intval($_GET['editar']));
         }
 
-        $clientes = $this->model->buscarTodos();
+        $busca = trim($_GET['busca'] ?? '');
+        $clientes = $this->model->buscarTodos($busca);
 
         include __DIR__ . '/../View/Clientes/index.php';
     }

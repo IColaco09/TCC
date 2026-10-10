@@ -13,7 +13,7 @@
             }
 
             if (!isset($_SESSION['id'])) {
-                header("Location: ?url=login");
+                header("Location: login");
                 exit;
             }
 
@@ -25,6 +25,11 @@
         public function produtos() {
             $sucesso = '';
             $erro = '';
+
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && !csrfValido()) {
+                definirMensagem('erro', 'Requisição inválida. Tente novamente.');
+                redirecionarPRG('produtos');
+            }
 
             // CADASTRAR
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['acao'] ?? '') === 'cadastrar') {
@@ -45,7 +50,7 @@
                     definirMensagem('erro', "Erro ao cadastrar produto.");
                 }
 
-                redirecionarPRG('?url=produtos');
+                redirecionarPRG('produtos');
             }
 
             // CADASTRAR TIPO
@@ -59,7 +64,7 @@
                     definirMensagem('erro', "Erro ao cadastrar Tipo de Produto");
                 }
 
-                redirecionarPRG('?url=produtos');
+                redirecionarPRG('produtos');
             }
 
             // BUSCAR TIPO
@@ -80,19 +85,23 @@
                     definirMensagem('erro', "Erro ao atualizar produto.");
                 }
 
-                redirecionarPRG('?url=produtos');
+                redirecionarPRG('produtos');
             }
 
             // EXCLUIR
-            if (isset($_GET['excluir'])) {
-                $codigo = intval($_GET['excluir']);
-                if($this->model->excluirProduto($codigo)){
-                    definirMensagem('sucesso', "Produto excluído com sucesso!");
-                } else {
-                    definirMensagem('erro', "Erro ao excluir produto.");
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['acao'] ?? '') === 'excluir') {
+                $codigo = intval($_POST['codigo'] ?? 0);
+                try {
+                    if($this->model->excluirProduto($codigo)){
+                        definirMensagem('sucesso', "Produto excluído com sucesso!");
+                    } else {
+                        definirMensagem('erro', "Erro ao excluir produto.");
+                    }
+                } catch (PDOException $e) {
+                    definirMensagem('erro', "Não foi possível excluir: o produto está em pedidos.");
                 }
 
-                redirecionarPRG('?url=produtos');
+                redirecionarPRG('produtos');
             }
 
             // BUSCAR
@@ -101,7 +110,8 @@
                 $produto_buscar = $this->model->buscarPorCodigo(intval($_GET['buscar']));
             }
 
-            $produtos = $this->model->listarProdutos();
+            $busca = trim($_GET['busca'] ?? '');
+            $produtos = $this->model->listarProdutos($busca);
             require_once __DIR__.'/../View/Produtos/index.php';
         }
     }

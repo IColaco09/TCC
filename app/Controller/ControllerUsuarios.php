@@ -11,12 +11,12 @@
             session_start(['cookie_httponly' => true, 'use_only_cookies' => true]);
         }
         if (!isset($_SESSION['id'])) {
-            header("Location: ?url=login");
+            header("Location: login");
             exit;
         }
         if ($_SESSION['tipo'] != 1) {
 
-        header("Location: ?url=home");
+        header("Location: home");
             exit;
         } 
 
@@ -28,6 +28,11 @@
         public function Usuario() {
             $sucesso = '';
             $erro = '';
+
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && !csrfValido()) {
+                definirMensagem('erro', 'Requisição inválida. Tente novamente.');
+                redirecionarPRG('usuarios');
+            }
  
         // CADASTRAR
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['acao'] ?? '') === 'cadastrar') {
@@ -46,7 +51,7 @@
                 definirMensagem('erro', "Erro ao cadastrar usuário.");
             }
 
-            redirecionarPRG('?url=usuarios');
+            redirecionarPRG('usuarios');
         }
  
         // EDITAR
@@ -63,19 +68,21 @@
             } else {
                 definirMensagem('erro', "Erro ao atualizar usuário.");
             }
-            redirecionarPRG('?url=usuarios');
+            redirecionarPRG('usuarios');
         }
  
         // EXCLUIR
-        if (isset($_GET['excluir'])) {
-            $id = intval($_GET['excluir']);
-            if ($id === $_SESSION['id']) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['acao'] ?? '') === 'excluir') {
+            $id = intval($_POST['id'] ?? 0);
+            if ($id === (int)$_SESSION['id']) {
                 definirMensagem('erro', "Você não pode excluir seu próprio usuário.");
+            } elseif ($this->model->excluir($id)) {
+                definirMensagem('sucesso', "Usuário excluído com sucesso!");
             } else {
-                $this->model->excluir($id);
+                definirMensagem('erro', "Erro ao excluir usuário.");
             }
 
-            redirecionarPRG('?url=usuarios');
+            redirecionarPRG('usuarios');
         }
  
         // BUSCAR PARA EDITAR
@@ -84,7 +91,8 @@
             $usuario_editar = $this->model->buscarPorId(intval($_GET['editar']));
         }
  
-        $usuarios = $this->model->listar();
+        $busca = trim($_GET['busca'] ?? '');
+        $usuarios = $this->model->listar($busca);
  
         include __DIR__ . '/../View/Usuarios/index.php';
     }

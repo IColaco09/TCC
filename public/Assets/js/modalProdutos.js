@@ -26,10 +26,8 @@ function abrirEditar(codigo, nome, preco, estoque, descricao, tipo) {
   document.getElementById('modalEditar').classList.add('ativo');
 }
 
-function abrirExcluir(id) {
-  document.getElementById('Excluir').href = 
-    '/TCC/?url=produtos&excluir=' + id;
+function abrirExcluir(codigo) {
+  document.getElementById('excluirCodigo').value = codigo;
 
   document.getElementById('modalExcluir').classList.add('ativo');
 }
-

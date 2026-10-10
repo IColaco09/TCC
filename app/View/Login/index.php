@@ -11,7 +11,7 @@
 
 <body class="login-page">
 
-    <form method="POST" action="<?= BASE_URL ?>/?url=login">
+    <form method="POST" action="<?= BASE_URL ?>/login">
         <div class="form-container">
             <img class="login-logo" src="<?= BASE_URL ?>/public/Assets/img/logo-login.png" alt="NextCore logo">
             <h2>Bem-vindo</h2>

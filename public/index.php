@@ -5,6 +5,10 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 
+if (!defined('BASE_URL')) {
+    define('BASE_URL', dirname(dirname($_SERVER['SCRIPT_NAME'])));
+}
+
 // pega a rota da URL
 $url = $_GET['url'] ?? 'login';
 
@@ -58,7 +62,17 @@ switch ($url) {
         (new ControllerVendas())->vendas();
         break;
 
+    case 'sair':
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start(['cookie_httponly' => true, 'use_only_cookies' => true]);
+        }
+        $_SESSION = [];
+        session_destroy();
+        header("Location: ?url=login");
+        exit;
+
     default:
-        echo "404 - Página não encontrada";
+        http_response_code(404);
+        require __DIR__ . '/../app/View/Erro/404.php';
         break;
 }
