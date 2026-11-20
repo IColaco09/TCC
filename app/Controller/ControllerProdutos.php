@@ -8,10 +8,7 @@
         private $model;
 
         public function __construct() {
-            if (session_status() == PHP_SESSION_NONE) {
-                session_start(['cookie_httponly' => true, 'use_only_cookies' => true]);
-            }
-
+        
             if (!isset($_SESSION['id'])) {
                 header("Location: login");
                 exit;
@@ -39,6 +36,11 @@
                 $estoque = intval($_POST['estoque']);
                 $tipo = intval($_POST['tipo_produto']);
                 $descricao = trim($_POST['descricao']);
+
+                if($preco <= 0){
+                    definirMensagem('erro', "O produto precisa de um valor maior do que 0!");
+                    redirecionarPRG('produtos');
+                }
 
                 $resultado = $this->model->cadastrarProduto($nome, $codigo, $preco, $descricao, $estoque, $tipo);
 

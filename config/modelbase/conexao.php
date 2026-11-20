@@ -1,9 +1,10 @@
 <?php
 
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db = "tcc_provisorio";
+$cfg = is_file(__DIR__ . '/creds.php') ? require __DIR__ . '/creds.php' : [];
+$host = $cfg['host'] ?? 'localhost';
+$user = $cfg['user'] ?? 'root';
+$pass = $cfg['pass'] ?? '';
+$db   = $cfg['db'] ?? 'tcc_provisorio';
 
 try {
     $conn = new PDO(
