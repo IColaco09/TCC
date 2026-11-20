@@ -691,6 +691,9 @@ h2 {
   width: 200px;
 }
 
+.alerta-estoque { color: #ffc800; margin-top: 10px; }
+.alerta-estoque.zerado { color: var(--red); }
+
 /* Página 404 */
 .erro-404 h1 {
   font-size: 72px;

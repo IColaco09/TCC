@@ -18,6 +18,7 @@
 
     <aside class="sidebar">
       <h2 class="name">NextCore</h2>
+
       <nav>
         <button onclick="rotaHome()" class="active">Início</button>
         <button onclick="rotaProdutos()">Produtos</button>
@@ -41,24 +42,33 @@
 
       <section class="cards">
         <div class="card">
-          <h3>Lucro de vendas</h3>
-          <p>R$ X</p>
+          <h3>Receita</h3>
+          <p>R$ <?= number_format((float)$totalVendas, 2, ',', '.') ?></p>
         </div>
 
         <div class="card">
           <h3>Clientes</h3>
-          <p>Y</p>
+          <p><?= (int)$totalClientes ?></p>
         </div>
 
         <div class="card">
-          <h3>Pedidos</h3>
-          <p>Z</p>
+          <h3>Produtos</h3>
+          <p><?= (int)$totalProdutos ?></p>
         </div>
       </section>
 
       <section class="panel">
-        <h2>Visão geral</h2>
-        <p>---</p>
+        <h2>Estoque baixo</h2>
+        <?php if (empty($estoqueBaixo)): ?>
+          <p>Nenhum produto com estoque baixo</p>
+        <?php else: ?>
+          <?php foreach ($estoqueBaixo as $p): ?>
+            <p class="alerta-estoque <?= $p['estoque'] == 0 ? 'zerado' : '' ?>">
+              <?= htmlspecialchars($p['codigo']) ?> - <?= htmlspecialchars($p['nome']) ?>:
+              <b><?= (int)$p['estoque'] ?></b> un.
+            </p>
+          <?php endforeach; ?>
+        <?php endif; ?>
       </section>
 
     </main>
