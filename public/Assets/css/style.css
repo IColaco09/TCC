@@ -690,3 +690,16 @@ h2 {
 .login-logo {
   width: 200px;
 }
+
+/* Página 404 */
+.erro-404 h1 {
+  font-size: 72px;
+  color: var(--cyan);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+a.submit-btn {
+  display: block;
+  text-decoration: none;
+}
