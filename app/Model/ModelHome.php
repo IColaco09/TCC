@@ -26,4 +26,10 @@
             $row = $res->fetch();
             return $row['soma'] ?? 0; //Retorna 0 se ainda não houver vendas concluidas
         }
+
+        public function estoqueBaixo($limite = 10){
+            $stmt = $this->conn->prepare("SELECT codigo, nome, estoque FROM produtos WHERE ativo = 1 AND tipo = 'produto' AND estoque < ? ORDER BY estoque ASC LIMIT 5");
+            $stmt->execute([$limite]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
     }

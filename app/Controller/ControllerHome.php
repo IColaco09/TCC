@@ -36,6 +36,7 @@
             $totalClientes = $this->model->contarClientes();
             $totalProdutos = $this->model->contarProdutos();
             $totalVendas = $this->model->somarVendas();
+            $estoqueBaixo = $this->model->estoqueBaixo(10);
 
             //Passa para a view
             include __DIR__ . '/../View/Home/index.php';
