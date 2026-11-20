@@ -1,5 +1,6 @@
 <?php
 
+ini_set('error_log', __DIR__ . '/../erros.log');
 error_reporting(E_ALL);
 ini_set('display_errors', '0');
 ini_set('log_errors', '1');
@@ -9,7 +10,7 @@ set_exception_handler(function ($e) {
     echo 'Erro interno. Tente novamente mais tarde.';
 });
 
-require __DIR__ . '../config/sessao.php';
+require __DIR__ . '/../config/sessao.php';
 
 if (!defined('BASE_URL')) {
     define('BASE_URL', dirname(dirname($_SERVER['SCRIPT_NAME'])));
