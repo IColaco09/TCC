@@ -20,7 +20,8 @@ function csrfToken() {
 }
 
 function csrfValido() {
-    return hash_equals($_SESSION['csrf'] ?? '', (string)($_POST['csrf'] ?? ''));
+    $t = $_SESSION['csrf'] ?? '';
+    return $t !== '' && hash_equals($t, (string)($_POST['csrf'] ?? ''));
 }
 
 function jsArgs(...$valores) {

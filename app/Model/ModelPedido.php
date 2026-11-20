@@ -40,8 +40,7 @@
             if (!$pedidos) {
                 return [];
             }
-
-            // Uma consulta para os itens de todos os pedidos listados.
+            
             $ids = array_column($pedidos, 'id');
             $marcadores = implode(',', array_fill(0, count($ids), '?'));
             $stmtItens = $this->conn->prepare("
@@ -82,7 +81,6 @@
         }
 
         public function cadastrarPedido($cliente_id, $usuario_id, array $itens, $observacoes = null) {
-            // $itens = [ ['produto_id' => 1, 'quantidade' => 2, 'preco_unit' => 10.50], ... ]
 
             if (empty($itens)) {
                 throw new InvalidArgumentException('Pedido precisa de pelo menos um item.');
@@ -91,7 +89,6 @@
             $this->conn->beginTransaction();
 
             try {
-                // total calculado a partir dos itens, não confia em valor vindo de fora
                 $total = 0;
                 foreach ($itens as $item) {
                     $total += $item['quantidade'] * $item['preco_unit'];
@@ -108,7 +105,6 @@
                     INSERT INTO pedido_itens (pedido_id, produto_id, quantidade, preco_unit)
                     VALUES (?, ?, ?, ?)
                 ");
-                // desconta estoque só se tiver saldo suficiente (checagem atômica no próprio WHERE)
                 $stmtEstoque = $this->conn->prepare("
                     UPDATE produtos SET estoque = estoque - ? WHERE id = ? AND estoque >= ?
                 ");

@@ -116,8 +116,8 @@ $perfis = [
   <div class="modal-overlay" id="modalCadastrar"><!-- Modal para cadastrar usuário -->
     <div class="modal">
       <h2>Cadastrar Usuário</h2>
-      <form method="POST" action="<?= BASE_URL ?>
-        <input type="hidden" name="csrf" value="<?= csrfToken() ?>">/usuarios">
+      <form method="POST" action="<?= BASE_URL ?>/usuarios">
+        <input type="hidden" name="csrf" value="<?= csrfToken() ?>">
         <input type="hidden" name="acao" value="cadastrar">
 
         <input type="text" name="nome" id="cadastrarNome" placeholder="Nome" required>

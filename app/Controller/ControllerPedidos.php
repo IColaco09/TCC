@@ -12,9 +12,6 @@
         private $modelProdutos;
 
         public function __construct() {
-            if (session_status() == PHP_SESSION_NONE) {
-                session_start(['cookie_httponly' => true, 'use_only_cookies' => true]);
-            }
 
             if (!isset($_SESSION['id'])) {
                 header("Location: login");
@@ -37,8 +34,7 @@
                 redirecionarPRG('pedidos');
             }
 
-            // CADASTRAR — POST acao=cadastrar
-            // Campos: cliente_id, observacoes (opcional), produto_id[], quantidade[], preco_unit[]
+            
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['acao'] ?? '') === 'cadastrar') {
                 $cliente_id  = intval($_POST['cliente_id'] ?? 0);
                 $observacoes = trim($_POST['observacoes'] ?? '');
@@ -67,13 +63,13 @@
                     );
                     definirMensagem('sucesso', "Pedido #$pedido_id cadastrado com sucesso!");
                 } catch (\Throwable $e) {
-                    definirMensagem('erro', "Erro ao cadastrar pedido: " . $e->getMessage());
+                    definirMensagem('erro', "Erro ao cadastrar pedido");
                 }
 
                 redirecionarPRG('pedidos');
             }
 
-            // CONCLUIR — POST acao=concluir
+            // CONCLUIR
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['acao'] ?? '') === 'concluir') {
                 $id = intval($_POST['id'] ?? 0);
                 if ($this->model->concluirPedido($id)) {
@@ -85,7 +81,7 @@
                 redirecionarPRG('pedidos');
             }
 
-            // CANCELAR — POST acao=cancelar
+            // CANCELAR
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['acao'] ?? '') === 'cancelar') {
                 $id = intval($_POST['id'] ?? 0);
                 try {
@@ -95,7 +91,7 @@
                         definirMensagem('erro', "Pedido já estava cancelado ou não existe.");
                     }
                 } catch (\Throwable $e) {
-                    definirMensagem('erro', "Erro ao cancelar pedido: " . $e->getMessage());
+                    definirMensagem('erro', "Erro ao cancelar pedido");
                 }
 
                 redirecionarPRG('pedidos');

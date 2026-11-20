@@ -1,9 +1,15 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+ini_set('display_errors', '0');
+ini_set('log_errors', '1');
+set_exception_handler(function ($e) {
+    error_log($e);
+    http_response_code(500);
+    echo 'Erro interno. Tente novamente mais tarde.';
+});
 
+require __DIR__ . '../config/sessao.php';
 
 if (!defined('BASE_URL')) {
     define('BASE_URL', dirname(dirname($_SERVER['SCRIPT_NAME'])));
@@ -42,10 +48,10 @@ switch ($url) {
         (new ControllerClientes())->clientes();
         break;
 
-    case 'relatorios':
-        require __DIR__ . '/../app/Controller/ControllerRelatorios.php';
-        (new ControllerRelatorios())->relatorios();
-        break;
+    // case 'relatorios':
+    //     require __DIR__ . '/../app/Controller/ControllerRelatorios.php';
+    //     (new ControllerRelatorios())->relatorios();
+    //     break;
 
     case 'pedidos':
         require __DIR__ .'/../app/Controller/ControllerPedidos.php';
@@ -55,11 +61,6 @@ switch ($url) {
     case 'produtos':
         require __DIR__ .'/../app/Controller/ControllerProdutos.php';
         (new ControllerProdutos())->produtos();
-        break;
-
-    case 'vendas':
-        require __DIR__ .'/../app/Controller/ControllerVendas.php';
-        (new ControllerVendas())->vendas();
         break;
 
     case 'sair':

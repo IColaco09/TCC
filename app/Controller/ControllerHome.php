@@ -7,16 +7,15 @@
         private $model;
 
         public function __construct() {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start([
-                'cookie_httponly' => true,
-                'use_only_cookies' => true
-            ]);
-        }
 
         if (!isset($_SESSION['id'])) {
             header("Location:login");
             exit;
+        }
+
+        if (!isset($_SESSION['id'])) {
+                header("Location:login");
+                exit;
         }
 
         permitirEntrada([PERFIL_ADMIN, PERFIL_GERENTE, PERFIL_USER]);
@@ -25,20 +24,12 @@
         }
 
         public function index() {
-            // Verifica se o usuário está logado
-
-            if (!isset($_SESSION['id'])) {
-                header("Location:login");
-                exit;
-            }
-
-            //Busca os dados para exibir no dashboard
+            
             $totalClientes = $this->model->contarClientes();
             $totalProdutos = $this->model->contarProdutos();
             $totalVendas = $this->model->somarVendas();
             $estoqueBaixo = $this->model->estoqueBaixo(10);
 
-            //Passa para a view
             include __DIR__ . '/../View/Home/index.php';
         }
     }
