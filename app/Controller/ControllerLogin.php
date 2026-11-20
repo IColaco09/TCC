@@ -26,6 +26,13 @@ class ControllerLogin{
             if ($this->model->tentativasRecentes($usuario, $ip) >= 5) {
                 $erro = "Muitas tentativas. Tente novamente em 15 minutos.";
             } else {
+
+                $ip = $_SERVER['REMOTE_ADDR'];
+
+                if ($this->model->tentativasRecentes($usuario, $ip) >= 5) {
+                $erro = "Muitas tentativas. Tente novamente em 15 minutos.";
+
+                } else {
                 $user = $this->model->procurarUsuario($usuario);
 
                 if ($user && password_verify($senha, $user['senha'])) {
