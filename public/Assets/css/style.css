@@ -13,27 +13,74 @@
   --cyan: #00e5ff;
   --green: #00ff80;
   --red: #ff4d4d;
+  --amber: #ffc800;
   --bg: #0d1117;
+  --surface: #0d1117;
+  --input-bg: #1a2030;
   --glass: rgba(255, 255, 255, 0.04);
   --border: rgba(255, 255, 255, 0.08);
   --text: #e0e0e0;
   --muted: #7a8a99;
+  --accent-text: #000;
+  --overlay: rgba(0, 0, 0, 0.6);
+  --field: rgba(255, 255, 255, 0.04);
+  --search-bg: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.25);
+  --focus-bg: rgba(0, 255, 255, 0.04);
+  --hover-bg: rgba(0, 255, 255, 0.1);
+  --bg-glow-1: rgba(0, 255, 255, 0.05);
+  --bg-glow-2: rgba(0, 255, 128, 0.04);
+  --glow: rgba(0, 255, 255, 0.1);
+  --glow-soft: rgba(0, 255, 255, 0.08);
+  --glow-focus: rgba(0, 255, 255, 0.15);
+  --glow-strong: rgba(0, 255, 255, 0.35);
+  --shadow-drop: rgba(0, 0, 0, 0.5);
+  --badge-aberto: rgba(0, 255, 255, 0.12);
+  --badge-andamento: rgba(255, 200, 0, 0.12);
+  --badge-concluido: rgba(0, 255, 128, 0.12);
+  --badge-cancelado: rgba(255, 77, 77, 0.12);
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --cyan: #00809a;
+  --green: #00a85a;
+  --red: #d93636;
+  --amber: #a87b00;
+  --bg: #f4f7fa;
+  --surface: #ffffff;
+  --input-bg: #eef2f6;
+  --glass: rgba(255, 255, 255, 0.85);
+  --border: rgba(0, 0, 0, 0.12);
+  --text: #1a2230;
+  --muted: #5b6b7b;
+  --accent-text: #fff;
+  --overlay: rgba(20, 30, 40, 0.4);
+  --field: rgba(0, 0, 0, 0.04);
+  --search-bg: rgba(0, 0, 0, 0.06);
+  --line-strong: rgba(0, 0, 0, 0.3);
+  --focus-bg: rgba(0, 128, 154, 0.06);
+  --hover-bg: rgba(0, 128, 154, 0.1);
+  --bg-glow-1: rgba(0, 128, 154, 0.06);
+  --bg-glow-2: rgba(0, 168, 90, 0.05);
+  --glow: rgba(0, 0, 0, 0.1);
+  --glow-soft: rgba(0, 0, 0, 0.08);
+  --glow-focus: rgba(0, 128, 154, 0.2);
+  --glow-strong: rgba(0, 128, 154, 0.3);
+  --shadow-drop: rgba(0, 0, 0, 0.12);
+  --badge-aberto: rgba(0, 128, 154, 0.12);
+  --badge-andamento: rgba(168, 123, 0, 0.14);
+  --badge-concluido: rgba(0, 168, 90, 0.14);
+  --badge-cancelado: rgba(217, 54, 54, 0.12);
+  color-scheme: light;
 }
 
 /* ── BODY ── */
 body {
   background-color: var(--bg);
   background-image:
-    radial-gradient(
-      ellipse at 20% 50%,
-      rgba(0, 255, 255, 0.05) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      ellipse at 80% 20%,
-      rgba(0, 255, 128, 0.04) 0%,
-      transparent 50%
-    );
+    radial-gradient(ellipse at 20% 50%, var(--bg-glow-1) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, var(--bg-glow-2) 0%, transparent 50%);
   color: var(--text);
   min-height: 100vh;
 }
@@ -54,8 +101,8 @@ body.login-page {
   border-radius: 18px;
   border: 1px solid var(--border);
   box-shadow:
-    0 0 30px rgba(0, 255, 255, 0.1),
-    0 8px 32px rgba(0, 0, 0, 0.5);
+    0 0 30px var(--glow),
+    0 8px 32px var(--shadow-drop);
   width: 340px;
   text-align: center;
   animation: fadeIn 0.6s ease both;
@@ -96,8 +143,8 @@ h2 {
 .input-box input {
   width: 100%;
   padding: 14px 14px 10px;
-  background: rgba(255, 255, 255, 0.04);
-  border-bottom: 2px solid rgba(255, 255, 255, 0.25);
+  background: var(--field);
+  border-bottom: 2px solid var(--line-strong);
   outline: none;
   color: var(--text);
   font-size: 15px;
@@ -114,8 +161,8 @@ h2 {
 
 .input-box input:focus {
   border-color: var(--cyan);
-  background: rgba(0, 255, 255, 0.04);
-  box-shadow: 0 4px 18px rgba(0, 255, 255, 0.15);
+  background: var(--focus-bg);
+  box-shadow: 0 4px 18px var(--glow-focus);
 }
 
 .input-box span {
@@ -149,7 +196,7 @@ h2 {
   background: linear-gradient(90deg, var(--cyan), var(--green));
   padding: 13px 30px;
   border-radius: 10px;
-  color: #000;
+  color: var(--accent-text);
   font-size: 15px;
   font-weight: 700;
   transition:
@@ -162,7 +209,7 @@ h2 {
 
 .submit-btn:hover {
   filter: brightness(1.1);
-  box-shadow: 0 6px 24px rgba(0, 255, 255, 0.35);
+  box-shadow: 0 6px 24px var(--glow-strong);
   transform: translateY(-1px);
   cursor: pointer;
 }
@@ -203,6 +250,12 @@ h2 {
   gap: 15px;
 }
 
+.sidebar-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .sidebar button {
   color: var(--muted);
   padding: 10px;
@@ -212,7 +265,7 @@ h2 {
 
 .sidebar button:hover,
 .sidebar button.active {
-  background: rgba(0, 255, 255, 0.1);
+  background: var(--hover-bg);
   color: var(--cyan);
   cursor: pointer;
 }
@@ -265,7 +318,7 @@ h2 {
   padding: 20px;
   border-radius: 14px;
   border: 1px solid var(--border);
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.08);
+  box-shadow: 0 0 20px var(--glow-soft);
 }
 
 .card h3 {
@@ -302,9 +355,9 @@ h2 {
   padding: 12px;
   border-radius: 10px;
   outline: none;
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.08);
+  background: var(--search-bg);
+  color: var(--text);
+  box-shadow: 0 0 20px var(--glow-soft);
 }
 
 .buttons {
@@ -316,16 +369,15 @@ h2 {
   padding: 10px 15px;
   border-radius: 10px;
   background: var(--cyan);
-  color: black;
+  color: var(--accent-text);
   font-weight: bold;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.08);
-  text-decoration: none;
+  box-shadow: 0 0 20px var(--glow-soft);
 }
 
 .btn:hover {
   transform: translateY(-1px);
   filter: brightness(1.1);
-  box-shadow: 0 6px 24px rgba(0, 255, 255, 0.35);
+  box-shadow: 0 6px 24px var(--glow-strong);
   transition: 0.3s;
   cursor: pointer;
 }
@@ -411,14 +463,14 @@ h2 {
 }
 
 .msg-sucesso {
-  background: rgba(0, 255, 128, 0.1);
-  border: 1px solid rgba(0, 255, 128, 0.3);
+  background: var(--badge-concluido);
+  border: 1px solid var(--green);
   color: var(--green);
 }
 
 .msg-erro {
-  background: rgba(255, 77, 77, 0.1);
-  border: 1px solid rgba(255, 77, 77, 0.3);
+  background: var(--badge-cancelado);
+  border: 1px solid var(--red);
   color: var(--red);
 }
 
@@ -435,22 +487,22 @@ h2 {
 }
 
 .status-aberto {
-  background: rgba(0, 255, 255, 0.12);
+  background: var(--badge-aberto);
   color: var(--cyan);
 }
 
 .status-em_andamento {
-  background: rgba(255, 200, 0, 0.12);
-  color: #ffc800;
+  background: var(--badge-andamento);
+  color: var(--amber);
 }
 
 .status-concluido {
-  background: rgba(0, 255, 128, 0.12);
+  background: var(--badge-concluido);
   color: var(--green);
 }
 
 .status-cancelado {
-  background: rgba(255, 77, 77, 0.12);
+  background: var(--badge-cancelado);
   color: var(--red);
 }
 
@@ -459,7 +511,7 @@ h2 {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: var(--overlay);
   backdrop-filter: blur(4px);
   justify-content: center;
   align-items: center;
@@ -471,12 +523,12 @@ h2 {
 }
 
 .modal {
-  background: var(--bg);
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 30px;
   width: 400px;
-  box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+  box-shadow: 0 0 30px var(--glow);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -503,7 +555,7 @@ h2 {
   padding: 12px;
   border-radius: 8px;
   border: 1px solid var(--border);
-  background: #1a2030;
+  background: var(--input-bg);
   color: var(--text);
 }
 
@@ -522,7 +574,7 @@ h2 {
 }
 
 .modal select option {
-  background: #1a2030;
+  background: var(--input-bg);
   color: var(--text);
 }
 
@@ -543,7 +595,7 @@ h2 {
 .modal-buttons button:hover {
   transform: translateY(-1px);
   filter: brightness(1.1);
-  box-shadow: 0 6px 24px rgba(0, 255, 255, 0.35);
+  box-shadow: 0 6px 24px var(--glow-strong);
   transition: 0.3s;
   cursor: pointer;
 }
@@ -556,7 +608,7 @@ h2 {
 
 .modal-buttons button[type="submit"] {
   background: var(--cyan);
-  color: black;
+  color: var(--accent-text);
 }
 
 /* ── Linha de item (modal de cadastro de Pedido) ── */
