@@ -16,7 +16,7 @@ $perfis = [
   <link rel="icon" type="image/png" href="<?= BASE_URL ?>/public/Assets/img/logo.png?v=1">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<?= BASE_URL ?>/public/Assets/css/style.css">
-  <script src="<?= BASE_URL ?>/public/js/tema.js"></script>
+  <script src="<?= BASE_URL ?>/public/Assets/js/tema.js"></script>
   <script src="<?= BASE_URL ?>/public/Assets/js/rotas.js"></script>
   <script src="<?= BASE_URL ?>/public/Assets/js/modais.js" defer></script>
   <script src="<?= BASE_URL ?>/public/Assets/js/modalUsuarios.js" defer></script>
@@ -143,8 +143,8 @@ $perfis = [
   <div class="modal-overlay" id="modalEditar"><!-- Modal para editar usuário -->
     <div class="modal">
       <h2>Editar Usuário</h2>
-      <form method="POST" action="<?= BASE_URL ?>
-        <input type="hidden" name="csrf" value="<?= csrfToken() ?>">/usuarios">
+      <form method="POST" action="<?= BASE_URL ?>/usuarios">
+        <input type="hidden" name="csrf" value="<?= csrfToken() ?>">
         <input type="hidden" name="acao" value="editar">
         <input type="hidden" name="id" id="editarId">
 
@@ -178,8 +178,8 @@ $perfis = [
 
       <div class="modal-buttons">
         <button type="button" onclick="fecharModal('modalExcluir')">Cancelar</button>
-        <form method="POST" action="<?= BASE_URL ?>
-        <input type="hidden" name="csrf" value="<?= csrfToken() ?>">/usuarios">
+        <form method="POST" action="<?= BASE_URL ?>/usuarios">
+        <input type="hidden" name="csrf" value="<?= csrfToken() ?>">
           <input type="hidden" name="acao" value="excluir">
           <input type="hidden" name="id" id="excluirId">
           <button type="submit">Excluir</button>
